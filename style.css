@@ -47,8 +47,8 @@ body {
 /* FOTO OVAL MEDIUM */
 .img-container {
     position: relative;
-    width: 85px !important;   /* Gue naikkan dari 60px */
-    height: 120px !important; /* Gue naikkan dari 90px */
+    width: 130px !important;   /* Gue naikkan dari 60px */
+    height: 180px !important; /* Gue naikkan dari 90px */
     margin: 0 auto 15px auto;
     border-radius: 45px;      /* Oval rapi */
     border: 3px solid white;
@@ -123,3 +123,4 @@ button {
 }
 
 .footer-text { font-size: 10px; color: #bbb; margin-top: 20px; font-style: italic; }
+
