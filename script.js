@@ -81,7 +81,8 @@ async function terimaMaaf() {
     videoEl.play(); 
 
     // 4. Animasi Ketik Romantis (English Vers.)
-    await new Promise(r => setTimeout(r, 1000));
+    
+    await new Promise(r => setTimeout(r, 2500));
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.");
     await new Promise(r => setTimeout(r, 800));
     
@@ -171,4 +172,5 @@ async function terimaMaaf() {
     
     document.getElementById('final-footer').style.display = 'block';
 }
+
 
