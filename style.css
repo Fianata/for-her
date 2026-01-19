@@ -42,24 +42,24 @@ body {
 
 .card {
     background: rgba(255, 255, 255, 0.95);
-    padding: 35px 25px;
+    padding: 30px 20px;
     border-radius: 35px;
     box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
-    text-align: center; /* Memastikan semua teks di tengah */
-    max-width: 360px;
-    width: 90%;
-    border: 4px double var(--main-pink); /* Classic "English Lit" touch */
+    text-align: center;
+    max-width: 350px;
+    width: 85%;
+    border: 4px double var(--main-pink);
     backdrop-filter: blur(10px);
     z-index: 10;
     animation: fadeIn 0.8s ease;
 }
 
-/* CONTAINER FOTO (Kunci biar pas di tengah) */
+/* CONTAINER FOTO (Ukurannya gue kecilin ke 100px) */
 .img-wrapper {
     position: relative;
-    width: 130px;
-    height: 130px;
-    margin: 0 auto 20px auto; /* Margin auto kiri-kanan bikin dia ke tengah */
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px auto; /* Margin auto biar pas tengah */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,34 +70,33 @@ body {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid white;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.15);
+    border: 4px solid white;
+    box-shadow: 0 6px 15px rgba(233, 30, 99, 0.1);
 }
 
 .heart-icon {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 24px;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+    bottom: 2px;
+    right: 2px;
+    font-size: 20px;
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
     color: var(--dark-pink);
-    font-size: 28px;
-    margin-bottom: 15px;
+    font-size: 26px;
+    margin-bottom: 10px;
 }
 
 p {
     color: var(--text-gray);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 12px;
 }
 
 .warning-text {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--main-pink);
     font-weight: 700;
     font-style: italic;
@@ -110,20 +109,20 @@ p {
 .btn-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Memastikan tombol lurus di tengah */
+    align-items: center;
     gap: 12px;
-    margin-top: 25px;
+    margin-top: 20px;
     min-height: 120px;
 }
 
 button {
     font-family: 'Quicksand', sans-serif;
-    padding: 14px 30px;
+    padding: 12px 25px;
     border: none;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 15px;
-    width: 210px;
+    font-size: 14px;
+    width: 190px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     touch-action: manipulation;
@@ -144,25 +143,17 @@ button {
     color: #999;
     border: 1px solid #eee;
     z-index: 999;
-    /* Transisi smooth pas lari */
     transition: left 0.3s ease, top 0.3s ease;
 }
 
 .footer-text {
-    font-size: 11px;
-    color: #bbb;
-    margin-top: 30px;
+    font-size: 10px;
+    color: #ccc;
+    margin-top: 25px;
     font-style: italic;
 }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsif buat layar HP kecil */
-@media (max-width: 320px) {
-    .card { padding: 25px 15px; }
-    h1 { font-size: 24px; }
-    button { width: 180px; }
 }
