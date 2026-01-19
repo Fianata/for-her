@@ -1,5 +1,5 @@
 /**
- * Logika tombol Not Yet lari dan ganti teks secara acak
+ * Logika tombol "Not Yet" lari dan ganti teks secara acak
  */
 function pindahTombol() {
     const btn = document.getElementById('btnEngga');
@@ -21,7 +21,7 @@ function pindahTombol() {
 }
 
 /**
- * Animasi mengetik teks dengan parameter speed dinamis
+ * Animasi mengetik teks
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -49,17 +49,18 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // 1. Play Musik (Mulai detik 210)
+    // 1. Play Musik (Mulai detik 210 / 3:30)
     music.currentTime = 210;
     music.volume = 0;
     music.play();
     
+    // Fade in musik awal (0 ke 0.7)
     let fadeIn = setInterval(() => {
-        if (music.volume < 0.7) music.volume += 0.1;
+        if (music.volume < 0.7) music.volume += 0.05;
         else clearInterval(fadeIn);
-    }, 150);
+    }, 200);
 
-    // 2. Monitoring Stop di Detik 276 (Fade Out ke Replay)
+    // 2. Monitoring Waktu Lagu (Stop di Detik 276)
     music.ontimeupdate = () => {
         if (music.currentTime >= 276) { 
             finishEverything();
@@ -69,7 +70,7 @@ async function terimaMaaf() {
     function finishEverything() {
         scene.classList.add('fade-out-all');
         let fadeOut = setInterval(() => {
-            if (music.volume > 0.05) music.volume -= 0.05;
+            if (music.volume > 0.02) music.volume -= 0.02;
             else {
                 music.pause();
                 clearInterval(fadeOut);
@@ -77,7 +78,7 @@ async function terimaMaaf() {
                 replayScreen.style.display = 'flex';
                 setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
             }
-        }, 200);
+        }, 100);
     }
 
     // 3. Transisi Blackout
@@ -90,18 +91,24 @@ async function terimaMaaf() {
         scene.style.display = 'flex';
     }, 800);
 
-    // 4. MUNCULKAN VIDEO & SUARA AI (GEORGE 25s)
+    // 4. MUNCULKAN VIDEO & SUARA AI (DENGAN SMOOTH DUCKING)
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
     videoEl.playbackRate = 0.8; 
     videoEl.play();
 
-    // --- LOGIKA AUDIO DUCKING ELEVENLABS ---
-    music.volume = 0.3; 
-    voice.play();
+    // --- LOGIKA SMOOTH DUCKING (Menurunkan Volume Musik) ---
+    // Musik turun perlahan ke 0.15 agar suara George ElevenLabs dominan
+    let duckingDown = setInterval(() => {
+        if (music.volume > 0.15) {
+            music.volume -= 0.05;
+        } else {
+            clearInterval(duckingDown);
+            voice.play(); // Play suara AI setelah musik mengecil
+        }
+    }, 50);
 
-    // ANGKA SAKTI: Speed 69ms agar sinkron dengan durasi suara 25 detik
-    const typoSpeed = 69; 
+    const typoSpeed = 69; // Kecepatan sinkron durasi 25 detik
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 800));
@@ -114,12 +121,12 @@ async function terimaMaaf() {
     
     await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    // Naikan volume musik saat George selesai bicara
+    // --- LOGIKA FADE UP (Menaikkan Volume Musik Kembali) ---
     voice.onended = () => {
-        let fadeUp = setInterval(() => {
+        let duckingUp = setInterval(() => {
             if (music.volume < 0.7) music.volume += 0.05;
-            else clearInterval(fadeUp);
-        }, 200);
+            else clearInterval(duckingUp);
+        }, 150);
         document.getElementById('final-footer').style.display = 'block';
     };
 }
