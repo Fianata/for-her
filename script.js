@@ -54,7 +54,7 @@ async function terimaMaaf() {
     music.volume = 0;
     music.play();
     
-    // Fade in musik awal (0 ke 0.7)
+    // Fade in musik awal (0 ke 0.7) agar tidak mengagetkan di awal
     let fadeIn = setInterval(() => {
         if (music.volume < 0.7) music.volume += 0.05;
         else clearInterval(fadeIn);
@@ -91,22 +91,17 @@ async function terimaMaaf() {
         scene.style.display = 'flex';
     }, 800);
 
-    // 4. MUNCULKAN VIDEO & SUARA AI (DENGAN SMOOTH DUCKING)
+    // 4. MUNCULKAN VIDEO & SUARA AI (DENGAN INSTANT DUCKING)
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
     videoEl.playbackRate = 0.8; 
     videoEl.play();
 
-    // --- LOGIKA SMOOTH DUCKING (Menurunkan Volume Musik) ---
-    // Musik turun perlahan ke 0.15 agar suara George ElevenLabs dominan
-    let duckingDown = setInterval(() => {
-        if (music.volume > 0.15) {
-            music.volume -= 0.05;
-        } else {
-            clearInterval(duckingDown);
-            voice.play(); // Play suara AI setelah musik mengecil
-        }
-    }, 50);
+    // --- LOGIKA INSTANT DUCKING (Perbaikan Khusus HP) ---
+    // Langsung kecilkan volume ke 0.02 (sangat pelan) agar George tidak tenggelam
+    music.volume = 0.02; 
+    voice.volume = 1.0; // Pastikan volume AI maksimal
+    voice.play(); 
 
     const typoSpeed = 69; // Kecepatan sinkron durasi 25 detik
 
