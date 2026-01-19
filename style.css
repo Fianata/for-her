@@ -66,10 +66,26 @@ button { width: 190px; padding: 14px; border-radius: 50px; border: none; font-we
 }
 
 .video-wrapper-landscape {
-    position: relative; width: 95%; max-width: 450px; aspect-ratio: 16 / 9;
-    border-radius: 15px; overflow: hidden; opacity: 0;
-    transition: opacity 1.5s ease, transform 1.5s ease;
-    transform: scale(0.9); margin-bottom: 25px;
+    position: relative; 
+    width: 95%; 
+    max-width: 450px; 
+    aspect-ratio: 16 / 9;
+    border-radius: 15px; 
+    overflow: hidden; 
+    opacity: 0; 
+    transform: scale(0.9); /* Sedikit kecil di awal */
+    
+    /* UBAH BAGIAN INI: Dari 1.5s jadi 3s atau 3.5s */
+    transition: opacity 3s ease-in-out, transform 3.5s ease-in-out;
+    
+    margin-bottom: 25px;
+}
+
+.video-wrapper-landscape.show-video {
+    opacity: 1; 
+    transform: scale(1); /* Membesar perlahan */
+    box-shadow: 0 0 40px var(--pink-soft), 0 0 80px var(--pink-deep);
+}
 }
 
 .video-wrapper-landscape.show-video {
@@ -121,3 +137,4 @@ button { width: 190px; padding: 14px; border-radius: 50px; border: none; font-we
     opacity: 0 !important;
     transition: opacity 3s ease-in-out !important;
 }
+
