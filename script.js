@@ -15,7 +15,7 @@ function pindahTombol() {
     btn.style.left = randomX + 'px';
     btn.style.top = randomY + 'px';
 
-    const messages = ["nice try! 😜", "still no! 🙅‍♀️", "catch me! ✨", "oops! 🎀", "no way! 💨"];
+    const messages = ["nt mell! 😜", "dibilang percumaa! 😡", "! ✨", "ngeyel banget sii! 🙄", "sekali lagi mell! 😜"];
     btn.innerText = messages[Math.floor(Math.random() * messages.length)];
 }
 
@@ -25,3 +25,4 @@ function terimaMaaf() {
     if(btnEngga) btnEngga.style.display = 'none';
     document.getElementById('successCard').style.display = 'block';
 }
+
