@@ -15,7 +15,7 @@ function pindahTombol() {
     btn.style.left = randomX + 'px';
     btn.style.top = randomY + 'px';
 
-    const messages = ["nt mell! 😜", "dibilang percumaa! 😡", "! ✨", "ngeyel banget sii! 🙄", "sekali lagi mell! 😜"];
+    const messages = ["nt mell! 😜", "dibilang percumaa! 😡", "jangan nyerahhhh 😜", "ngeyel banget sii! 🙄", "sekali lagi mell! 😜"];
     btn.innerText = messages[Math.floor(Math.random() * messages.length)];
 }
 
