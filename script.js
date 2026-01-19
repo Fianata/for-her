@@ -25,12 +25,12 @@ function pindahTombol() {
 
     // Pesan bilingual buat anak English Lit
     const messages = [
-        "not today, bestie! 💅", 
-        "nice try! 😜✨", 
-        "catch me if you can! 🙅‍♀️", 
-        "still a no! 💨",
-        "oops, missed! 🎀",
-        "you can't catch me! 🤪"
+        "pfftttt ngeyel bgt😭", 
+        "nt mell haha", 
+        "catch me if you can!😜", 
+        "still a no!😡",
+        "eitss, bandel amattt😋",
+        "you can't catch me! 😋"
     ];
     btn.innerText = messages[Math.floor(Math.random() * messages.length)];
 }
@@ -46,3 +46,4 @@ function terimaMaaf() {
     main.style.display = 'none';
     success.style.display = 'block';
 }
+
