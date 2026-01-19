@@ -19,11 +19,11 @@ body {
     position: relative;
 }
 
-/* Dekorasi Melayang */
+/* DEKORASI FLOATING */
 .decor {
     position: absolute;
-    font-size: 28px;
-    opacity: 0.6;
+    font-size: 25px;
+    opacity: 0.7;
     pointer-events: none;
     animation: float 4s ease-in-out infinite;
 }
@@ -40,37 +40,37 @@ body {
     box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
     text-align: center;
     max-width: 330px;
-    width: 85%;
+    width: 90%;
     border: 4px double var(--main-pink);
     z-index: 10;
 }
 
-/* KUNCI OVAL KECIL DI SINI */
-.img-wrapper {
+/* FOTO OVAL MINI */
+.img-container {
     position: relative;
-    width: 80px !important;   /* Lebar gue paksa kecil */
-    height: 110px !important; /* Tinggi lebih panjang biar tetep OVAL */
-    margin: 0 auto 15px auto !important;
-    overflow: hidden;
-    border-radius: 40px;      /* Melengkung oval estetik */
+    width: 65px !important;  /* Lebar kecil */
+    height: 95px !important; /* Tinggi lebih panjang (OVAL) */
+    margin: 0 auto 15px auto;
+    border-radius: 35px;    /* Efek Oval */
     border: 3px solid white;
+    overflow: hidden;
     box-shadow: 0 5px 15px rgba(233, 30, 99, 0.1);
 }
 
 .profile-img {
-    width: 100% !important;
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
-.header-bow { font-size: 40px; display: block; margin-bottom: 5px; }
-
-.heart-icon {
+.img-decor {
     position: absolute;
-    bottom: -5px;
-    right: -5px;
-    font-size: 20px;
+    bottom: 2px;
+    right: 2px;
+    font-size: 14px;
 }
+
+.header-bow { font-size: 40px; display: block; }
 
 h1 {
     font-family: 'Dancing Script', cursive;
@@ -83,7 +83,14 @@ p {
     color: #666;
     font-size: 13px;
     line-height: 1.4;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+}
+
+.pro-tip {
+    font-size: 11px;
+    color: var(--main-pink);
+    font-style: italic;
+    font-weight: 700;
 }
 
 .btn-container {
@@ -91,6 +98,8 @@ p {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    margin-top: 15px;
+    min-height: 110px;
 }
 
 button {
@@ -114,4 +123,4 @@ button {
     transition: left 0.3s ease, top 0.3s ease;
 }
 
-.footer-text { font-size: 10px; color: #ccc; margin-top: 20px; font-style: italic; }
+.footer-text { font-size: 10px; color: #bbb; margin-top: 20px; font-style: italic; }
