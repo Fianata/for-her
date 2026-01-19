@@ -2,11 +2,13 @@
     --main-pink: #ff85a2;
     --dark-pink: #e91e63;
     --bg-pink: #fff0f5;
+    --text-gray: #666;
 }
 
 body {
     font-family: 'Quicksand', sans-serif;
     background-color: var(--bg-pink);
+    /* Polkadot Pattern */
     background-image: radial-gradient(var(--main-pink) 0.5px, transparent 0.5px);
     background-size: 25px 25px;
     display: flex;
@@ -15,18 +17,20 @@ body {
     min-height: 100vh;
     margin: 0;
     overflow: hidden;
+    position: relative;
 }
 
 .decor {
     position: absolute;
     font-size: 28px;
     opacity: 0.6;
+    pointer-events: none;
     animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
 }
 
 .card {
@@ -37,9 +41,13 @@ body {
     text-align: center;
     max-width: 360px;
     width: 85%;
-    border: 4px double var(--main-pink);
+    border: 4px double var(--main-pink); /* Classic Literature Vibes */
+    backdrop-filter: blur(10px);
     z-index: 10;
+    transition: all 0.5s ease;
 }
+
+.header-bow { font-size: 45px; display: block; }
 
 .img-wrapper {
     position: relative;
@@ -68,6 +76,21 @@ h1 {
     font-family: 'Dancing Script', cursive;
     color: var(--dark-pink);
     font-size: 30px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: var(--text-gray);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.warning-text {
+    font-size: 12px;
+    color: var(--main-pink);
+    font-weight: 700;
+    font-style: italic;
 }
 
 .btn-container {
@@ -88,11 +111,13 @@ button {
     font-size: 15px;
     width: 210px;
     cursor: pointer;
+    transition: transform 0.2s;
 }
 
 #btnIya {
     background: linear-gradient(45deg, var(--main-pink), var(--dark-pink));
     color: white;
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
 }
 
 #btnEngga {
@@ -100,6 +125,7 @@ button {
     color: #aaa;
     border: 1px solid #eee;
     z-index: 999;
+    /* Transisi pas teleport biar ga kaget banget */
     transition: left 0.3s ease, top 0.3s ease;
 }
 
@@ -107,4 +133,5 @@ button {
     font-size: 11px;
     color: #bbb;
     margin-top: 30px;
+    font-style: italic;
 }
