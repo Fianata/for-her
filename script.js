@@ -100,7 +100,7 @@ async function terimaMaaf() {
     // --- LOGIKA INSTANT DUCKING (Perbaikan Khusus HP) ---
     // Langsung kecilkan volume ke 0.02 (sangat pelan) agar George tidak tenggelam
     music.volume = 0.02; 
-    voice.volume = 1.0; // Pastikan volume AI maksimal
+    voice.volume = 4.0; // Pastikan volume AI maksimal
     voice.play(); 
 
     const typoSpeed = 69; // Kecepatan sinkron durasi 25 detik
@@ -125,3 +125,4 @@ async function terimaMaaf() {
         document.getElementById('final-footer').style.display = 'block';
     };
 }
+
