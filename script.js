@@ -3,38 +3,27 @@
  */
 function pindahTombol() {
     const btn = document.getElementById('btnEngga');
-    
-    // 1. Daftar pesan acak
     const daftarPesan = [
-        "nt mell! 😜",
-        "ngeyel! 🙄",
-        "coba lagi! 😋",
-        "pencet iyaa aja gasi!? 😡",
-        "dih maksa! 😭",
-        "gabisa mel sori! 🤪",
-        "sekali lagi mell! 😜"
+        "nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋",
+        "pencet iyaa aja gasi!? 😡", "dih maksa! 😭",
+        "gabisa mel sori! 🤪", "sekali lagi mell! 😜"
     ];
 
-    // 2. Pilih pesan acak
     const pesanAcak = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.innerText = pesanAcak;
 
-    // 3. Pindah posisi
     btn.style.position = 'fixed';
     const maxX = window.innerWidth - btn.offsetWidth - 50;
     const maxY = window.innerHeight - btn.offsetHeight - 50;
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    btn.style.left = randomX + 'px';
-    btn.style.top = randomY + 'px';
+    btn.style.left = Math.random() * maxX + 'px';
+    btn.style.top = Math.random() * maxY + 'px';
 }
 
 /**
- * Animasi mengetik teks
+ * Animasi mengetik teks dengan parameter speed dinamis
  */
-async function typeWriter(id, text, speed = 40) {
+async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
     for (let i = 0; i < text.length; i++) {
         el.innerHTML += text.charAt(i);
@@ -50,7 +39,7 @@ function lokasiReload() {
 }
 
 /**
- * FUNGSI UTAMA (Sudah Digabung)
+ * FUNGSI UTAMA - Pemicu Momen Puncak
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -65,23 +54,20 @@ async function terimaMaaf() {
     music.volume = 0;
     music.play();
     
-    // Fade in musik awal
     let fadeIn = setInterval(() => {
         if (music.volume < 0.7) music.volume += 0.1;
         else clearInterval(fadeIn);
     }, 150);
 
-    // 2. Monitoring Waktu Lagu (Berhenti & Fade Out di detik 276)
+    // 2. Monitoring Stop di Detik 276 (Fade Out ke Replay)
     music.ontimeupdate = () => {
         if (music.currentTime >= 276) { 
             finishEverything();
         }
     };
 
-    // Fungsi penutup momen
     function finishEverything() {
         scene.classList.add('fade-out-all');
-        
         let fadeOut = setInterval(() => {
             if (music.volume > 0.05) music.volume -= 0.05;
             else {
@@ -104,30 +90,31 @@ async function terimaMaaf() {
         scene.style.display = 'flex';
     }, 800);
 
-    // 4. MUNCULKAN VIDEO & SUARA AI (Momen Puncak)
-    // Jeda 2.5 detik agar video muncul dulu dengan cantik di HP
+    // 4. MUNCULKAN VIDEO & SUARA AI (GEORGE 25s)
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
-    videoEl.playbackRate = 0.8; // Video diperlambat agar estetik
+    videoEl.playbackRate = 0.8; 
     videoEl.play();
 
-    // --- LOGIKA ELEVENLABS (AUDIO DUCKING) ---
-    music.volume = 0.3; // Kecilkan musik agar suara AI Marcus/Bella terdengar jelas
+    // --- LOGIKA AUDIO DUCKING ELEVENLABS ---
+    music.volume = 0.3; 
     voice.play();
 
-    // Jalankan animasi ketik barengan sama suara AI
-    await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.");
+    // ANGKA SAKTI: Speed 69ms agar sinkron dengan durasi suara 25 detik
+    const typoSpeed = 69; 
+
+    await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 800));
     
-    await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...");
+    await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 500));
     
-    await typeWriter("type3", "I hope I can be one of those lights that always leads you back to where you feel safe and comfortable.");
+    await typeWriter("type3", "I hope I can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
     
-    await typeWriter("type4", "This is truly coming from the bottom of my heart. :)");
+    await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    // Setelah suara AI selesai, naikkan lagi volume musik Coldplay-nya
+    // Naikan volume musik saat George selesai bicara
     voice.onended = () => {
         let fadeUp = setInterval(() => {
             if (music.volume < 0.7) music.volume += 0.05;
