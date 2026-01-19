@@ -58,7 +58,7 @@ button { width: 190px; padding: 14px; border-radius: 50px; border: none; font-we
 /* DRAMATIC SCENE (Mode Gelap) */
 #dramatic-scene {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(ellipse at center, #cf1076 0%, #000000 80%);
+    background: radial-gradient(circle, #2d0a15 0%, #000000 85%);
     
     z-index: 9999; display: none;
     flex-direction: column; align-items: center; justify-content: center; padding: 25px;
@@ -137,4 +137,5 @@ button { width: 190px; padding: 14px; border-radius: 50px; border: none; font-we
     opacity: 0 !important;
     transition: opacity 3s ease-in-out !important;
 }
+
 
