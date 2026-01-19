@@ -54,7 +54,6 @@ async function terimaMaaf() {
     const scene = document.getElementById('dramatic-scene');
     const videoWrapper = document.querySelector('.video-wrapper-landscape');
     const videoEl = document.getElementById('us-video');
-    await new Promise(r => setTimeout(r, 2500));
 
     // 1. Play Musik (3:30 = 210 detik) & Fade In
     music.currentTime = 210;
@@ -173,18 +172,6 @@ async function terimaMaaf() {
     
     document.getElementById('final-footer').style.display = 'block';
 }
-/**
- * Fungsi untuk membacakan teks dengan suara AI
- */
-function bacakanTeks(teks) {
-    const speech = new SpeechSynthesisUtterance();
-    speech.text = teks;
-    speech.lang = 'en-US'; // Karena teks kita Bahasa Inggris
-    speech.rate = 0.8;     // Sedikit diperlambat biar dramatis
-    speech.pitch = 1;      // Nada suara normal
-    
-    // Pilih suara (opsional, browser akan milih yang terbaik)
-    window.speechSynthesis.speak(speech);
-}
+
 
 
