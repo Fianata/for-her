@@ -56,7 +56,7 @@ async function terimaMaaf() {
     
     // Fade in musik awal (0 ke 0.7) agar tidak mengagetkan di awal
     let fadeIn = setInterval(() => {
-        if (music.volume < 0.7) music.volume += 0.05;
+        if (music.volume < 0.5) music.volume += 0.05;
         else clearInterval(fadeIn);
     }, 200);
 
@@ -99,7 +99,7 @@ async function terimaMaaf() {
 
     // --- LOGIKA INSTANT DUCKING (Perbaikan Khusus HP) ---
     // Langsung kecilkan volume ke 0.02 (sangat pelan) agar George tidak tenggelam
-    music.volume = 0.02; 
+    music.volume = 0.01; 
     voice.volume = 4.0; // Pastikan volume AI maksimal
     voice.play(); 
 
@@ -125,4 +125,5 @@ async function terimaMaaf() {
         document.getElementById('final-footer').style.display = 'block';
     };
 }
+
 
