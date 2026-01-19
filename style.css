@@ -19,71 +19,56 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
     overflow: hidden;
-    position: relative;
-}
-
-.decor {
-    position: absolute;
-    font-size: 28px;
-    opacity: 0.6;
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
 }
 
 .card {
     background: rgba(255, 255, 255, 0.95);
-    padding: 20px 20px; /* Gue kecilin padding biar hemat tempat */
-    border-radius: 35px;
-    box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 133, 162, 0.2);
     text-align: center;
-    max-width: 340px;
-    width: 90%;
+    max-width: 320px;
+    width: 85%;
     border: 4px double var(--main-pink);
     z-index: 10;
 }
 
-/* KUNCI UKURAN FOTO DI SINI */
+/* KUNCI OVAL DI SINI */
 .img-wrapper {
     position: relative;
-    width: 110px;  /* Gue kunci di 110px biar ga kegedean */
-    height: 110px; /* Wajib sama dengan width biar bulet sempurna */
-    margin: 0 auto 15px auto;
-    overflow: hidden; /* Biar sisa foto panjangnya kepotong rapi */
-    border-radius: 50%; /* Paksa jadi bulet */
-    border: 5px solid white;
-    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.15);
+    width: 80px !important;   /* Lebar kecil */
+    height: 110px !important; /* Tinggi lebih panjang biar tetep OVAL */
+    margin: 0 auto 10px auto !important;
+    overflow: hidden;
+    border-radius: 40px;      /* Melengkung di pojok biar estetik */
+    border: 3px solid white;
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.1);
 }
 
 .profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Biar foto panjang lo ga gepeng/stretching */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover; /* Biar foto ga gepeng */
 }
 
 .heart-icon {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 20px;
-    z-index: 12;
+    bottom: -5px;
+    right: -5px;
+    font-size: 18px;
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
     color: var(--dark-pink);
-    font-size: 24px; /* Gue kecilin sizenya */
-    margin-bottom: 8px;
+    font-size: 22px;
+    margin-bottom: 5px;
 }
 
 p {
     color: #666;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.4;
     margin-bottom: 10px;
 }
@@ -92,19 +77,18 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-    min-height: 110px;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 button {
     font-family: 'Quicksand', sans-serif;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: none;
     border-radius: 50px;
     font-weight: 700;
-    font-size: 14px;
-    width: 200px;
+    font-size: 13px;
+    width: 180px;
     cursor: pointer;
 }
 
@@ -115,14 +99,14 @@ button {
 
 #btnEngga {
     background-color: #f8f9fa;
-    color: #aaa;
+    color: #999;
     border: 1px solid #eee;
     z-index: 999;
     transition: left 0.3s ease, top 0.3s ease;
 }
 
 .footer-text {
-    font-size: 10px;
-    color: #bbb;
-    margin-top: 20px;
+    font-size: 9px;
+    color: #ccc;
+    margin-top: 15px;
 }
