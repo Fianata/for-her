@@ -23,12 +23,12 @@ body {
     align-items: center;
     min-height: 100vh; 
     width: 100vw;
-    overflow-x: hidden; /* Mencegah scroll horizontal yang ganggu */
+    overflow-x: hidden;
     padding: 20px;
 }
 
 /* =========================================
-   2. THE ENCAPSULATED CARD
+   2. THE ENCAPSULATED CARD (The Frame)
    ========================================= */
 #content-wrapper { 
     transition: opacity 0.8s ease; 
@@ -39,16 +39,16 @@ body {
 }
 
 .card {
-    position: relative; /* Anchor wajib buat dekorasi di dalam */
+    position: relative; /* Anchor wajib agar dekorasi tidak kabur */
     background: white; 
-    padding: clamp(1.5rem, 5vw, 2.5rem); /* Padding dinamis */
+    padding: clamp(1.5rem, 5vw, 2.5rem); 
     border-radius: 35px;
     box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
     text-align: center; 
     width: 100%;
-    max-width: 380px; /* Batas lebar biar gak kelebaran di tablet/PC */
+    max-width: 380px; 
     border: 3px solid var(--pink-soft);
-    overflow: hidden; /* MEMOTONG pita yang keluar dari batas kartu */
+    overflow: hidden; /* WAJIB: Memotong dekorasi yang keluar batas */
     z-index: 5;
     animation: entrance 0.8s ease-out;
 }
@@ -59,39 +59,42 @@ body {
 }
 
 /* =========================================
-   3. INNER DECORATIONS (Responsive Positioning)
+   3. INNER DECORATIONS (Floating Inside Card)
    ========================================= */
 #inner-decorations {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; /* Biar pita gak ngalangin klik tombol */
-    z-index: 1;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    pointer-events: none; /* Biar pita nggak nge-block klik tombol */
+    z-index: 1; /* Di belakang teks & foto */
 }
 
 .decor {
     position: absolute; 
     font-size: clamp(20px, 6vw, 28px); 
-    opacity: 0.3; 
+    opacity: 0.35; 
     animation: floating 5s ease-in-out infinite;
+    /* Kita biarkan posisi top/left/right/bottom diatur di HTML inline style */
 }
 
 .decor:nth-child(even) { animation-duration: 6s; animation-delay: 1s; }
 
 @keyframes floating {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(10deg); }
+    50% { transform: translateY(-15px) rotate(15deg); }
 }
 
 /* =========================================
-   4. CONTENT ELEMENTS
+   4. CONTENT ELEMENTS (Layered Above Decor)
    ========================================= */
 .img-container {
     position: relative;
-    z-index: 2;
-    width: min(140px, 40vw); 
+    z-index: 2; /* Di depan dekorasi */
+    width: min(130px, 40vw); 
     height: auto;
-    aspect-ratio: 3 / 4; /* Menjaga rasio foto tetap estetik */
+    aspect-ratio: 3 / 4;
     margin: 0 auto 1.2rem;
     border-radius: 70px; 
     overflow: hidden; 
@@ -101,7 +104,8 @@ body {
 .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
 h1 { 
-    position: relative; z-index: 2;
+    position: relative; 
+    z-index: 2;
     font-family: 'Dancing Script', cursive; 
     color: var(--pink-deep); 
     margin-bottom: 0.8rem;
@@ -109,7 +113,8 @@ h1 {
 }
 
 p { 
-    position: relative; z-index: 2;
+    position: relative; 
+    z-index: 2;
     font-size: clamp(13px, 4vw, 15px); 
     color: var(--text-color);
     line-height: 1.5;
@@ -129,7 +134,7 @@ p {
    ========================================= */
 .btn-container { 
     position: relative; 
-    z-index: 3; 
+    z-index: 3; /* Lapisan paling depan agar lancar diklik */
     display: flex; 
     flex-direction: column; 
     gap: 12px; 
