@@ -1,233 +1,99 @@
-/* =========================================
-   1. CORE VARIABLES & RESET
-   ========================================= */
 :root {
     --pink-soft: #ff85a2;
     --pink-deep: #e91e63;
     --bg-color: #fff0f5;
-    --text-color: #444;
-    --transition-smooth: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Quicksand', sans-serif;
     background-color: var(--bg-color);
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    min-height: 100vh; 
-    width: 100vw;
-    overflow-x: hidden; /* Mencegah scroll horizontal yang ganggu */
-    padding: 20px;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; width: 100vw; overflow: hidden;
 }
 
-/* =========================================
-   2. THE ENCAPSULATED CARD
-   ========================================= */
-#content-wrapper { 
-    transition: opacity 0.8s ease; 
-    z-index: 10; 
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-}
-
+/* --- THE CARD --- */
 .card {
-    position: relative; /* Anchor wajib buat dekorasi di dalam */
-    background: white; 
-    padding: clamp(1.5rem, 5vw, 2.5rem); /* Padding dinamis */
-    border-radius: 35px;
+    position: relative;
+    background: white; padding: clamp(1.5rem, 5vw, 2.5rem); border-radius: 35px;
     box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
-    text-align: center; 
-    width: 100%;
-    max-width: 380px; /* Batas lebar biar gak kelebaran di tablet/PC */
-    border: 3px solid var(--pink-soft);
-    overflow: hidden; /* MEMOTONG pita yang keluar dari batas kartu */
-    z-index: 5;
-    animation: entrance 0.8s ease-out;
+    text-align: center; width: 92%; max-width: 380px;
+    border: 3px solid var(--pink-soft); overflow: hidden; z-index: 5;
 }
 
-@keyframes entrance {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================================
-   3. INNER DECORATIONS (Responsive Positioning)
-   ========================================= */
+/* --- INNER DECORATIONS --- */
 #inner-decorations {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; /* Biar pita gak ngalangin klik tombol */
-    z-index: 1;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1;
 }
 
 .decor {
-    position: absolute; 
-    font-size: clamp(20px, 6vw, 28px); 
-    opacity: 0.3; 
+    position: absolute; font-size: clamp(20px, 6vw, 28px); opacity: 0.35;
     animation: floating 5s ease-in-out infinite;
 }
-
-.decor:nth-child(even) { animation-duration: 6s; animation-delay: 1s; }
 
 @keyframes floating {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-15px) rotate(10deg); }
 }
 
-/* =========================================
-   4. CONTENT ELEMENTS
-   ========================================= */
+/* --- PROFILE & TEXT --- */
 .img-container {
-    position: relative;
-    z-index: 2;
-    width: min(140px, 40vw); 
-    height: auto;
-    aspect-ratio: 3 / 4; /* Menjaga rasio foto tetap estetik */
-    margin: 0 auto 1.2rem;
-    border-radius: 70px; 
-    overflow: hidden; 
+    position: relative; z-index: 2; width: 130px; height: 175px;
+    margin: 0 auto 1.2rem; border-radius: 65px; overflow: hidden;
     border: 4px solid var(--pink-soft);
 }
-
 .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
-h1 { 
-    position: relative; z-index: 2;
-    font-family: 'Dancing Script', cursive; 
-    color: var(--pink-deep); 
-    margin-bottom: 0.8rem;
-    font-size: clamp(24px, 7vw, 32px); 
-}
+h1, p, .btn-container, .footer-text { position: relative; z-index: 2; }
+h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 28px; }
+p { font-size: 14px; color: #555; line-height: 1.5; margin-top: 10px; }
+.pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin-bottom: 15px; }
 
-p { 
-    position: relative; z-index: 2;
-    font-size: clamp(13px, 4vw, 15px); 
-    color: var(--text-color);
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-.pro-tip {
-    font-size: 11px !important;
-    color: #999;
-    font-style: italic;
-    margin: 10px 0 15px;
-    padding: 0 10px;
-}
-
-/* =========================================
-   5. INTERACTIVE BUTTONS
-   ========================================= */
-.btn-container { 
-    position: relative; 
-    z-index: 3; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 12px; 
-    align-items: center; 
-    margin-top: 1rem; 
-}
-
+/* --- BUTTONS --- */
+.btn-container { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 15px; }
 button { 
-    width: 100%;
-    max-width: 240px;
-    padding: 14px; 
-    border-radius: 50px; 
-    border: none; 
-    font-weight: 700; 
-    cursor: pointer; 
-    transition: var(--transition-smooth);
-    font-family: 'Quicksand', sans-serif; 
+    width: 200px; padding: 14px; border-radius: 50px; border: none; 
+    font-weight: 700; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
+#btnIya { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; }
+#btnEngga { background: #000; color: white; font-size: 12px; }
 
-#btnIya { 
-    background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); 
-    color: white; 
-    box-shadow: 0 8px 15px rgba(233, 30, 99, 0.3);
-}
-
-#btnIya:hover { 
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 12px 20px rgba(233, 30, 99, 0.4);
-}
-
-#btnEngga { 
-    background: #f0f0f0; 
-    color: #888; 
-    font-size: 13px;
-}
-
-/* =========================================
-   6. DRAMATIC SCENE (CINEMATIC)
-   ========================================= */
+/* --- DRAMATIC SCENE (CINEMATIC FIXED) --- */
 #dramatic-scene {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, #2d0a15 0%, #000000 95%);
+    background: radial-gradient(circle at center, #1a050a 0%, #000 100%);
     z-index: 9999; display: none;
-    flex-direction: column; align-items: center; justify-content: center; 
-    padding: 20px;
+    flex-direction: column; align-items: center; justify-content: center;
 }
 
 .video-wrapper-landscape {
-    position: relative; 
-    width: 100%; 
-    max-width: 500px; 
-    aspect-ratio: 16 / 9;
-    border-radius: 20px; 
-    overflow: hidden; 
-    opacity: 0; 
-    transform: scale(0.95);
+    position: relative; width: 100%; max-width: 500px; aspect-ratio: 16 / 9;
+    border-radius: 15px; overflow: hidden; opacity: 0; transform: scale(0.95);
     transition: opacity 3s ease, transform 3.5s ease;
-    margin-bottom: 2rem;
 }
-
-.video-wrapper-landscape.show-video {
-    opacity: 1; 
-    transform: scale(1);
-    box-shadow: 0 0 50px rgba(255, 133, 162, 0.4);
-}
-
+.video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); box-shadow: 0 0 40px rgba(0,0,0,0.8); }
 #us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
 
+
+
+/* THE FIX: Subtitle positioned absolute so it doesn't push the video */
+#dramatic-text-container {
+    position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 500px; text-align: center; z-index: 10000;
+}
 .drama-text { 
-    color: white; 
-    font-size: clamp(14px, 4.5vw, 16px); 
-    text-align: center; 
-    margin-bottom: 0.7rem; 
-    max-width: 450px;
+    color: white; font-size: clamp(14px, 4.5vw, 17px); margin-bottom: 0.5rem; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.5;
 }
+.neon-pink { color: var(--pink-soft); text-shadow: 0 0 10px var(--pink-soft); font-weight: bold; }
 
-.neon-pink { 
-    color: var(--pink-soft); 
-    text-shadow: 0 0 10px var(--pink-soft), 0 0 20px var(--pink-deep); 
-    font-weight: bold;
-}
-
-/* =========================================
-   7. REPLAY & UTILS
-   ========================================= */
+/* --- REPLAY --- */
 #replay-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #000; z-index: 10000; display: none;
     justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease;
 }
-
-.btn-replay {
-    background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft);
-    padding: 16px 32px; border-radius: 50px; cursor: pointer; transition: 0.3s;
-}
-
-.btn-replay:hover { background: var(--pink-soft); color: white; }
-
+.btn-replay { background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; }
 .fade-out-all { opacity: 0 !important; transition: opacity 3s ease !important; }
-
-.footer-text { font-size: 11px; color: #bbb; margin-top: 1.5rem; letter-spacing: 1px; }
