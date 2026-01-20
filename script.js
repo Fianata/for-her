@@ -1,8 +1,7 @@
 /**
- * 1. Logika tombol "Not Yet" lari (DITAMBAH PENGAMAN)
+ * 1. LOGIKA TOMBOL "NOT YET" (ANTI-GHOST CLICK)
  */
 function pindahTombol(e) {
-    // PENGAMAN: Berhenti di sini, jangan teruskan klik ke bawah/belakang
     if (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -24,11 +23,11 @@ function pindahTombol(e) {
     btn.style.left = Math.random() * maxX + 'px';
     btn.style.top = Math.random() * maxY + 'px';
 
-    return false; // Pengaman tambahan
+    return false;
 }
 
 /**
- * 2. Animasi mengetik teks
+ * 2. ANIMASI MENGETIK
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -40,13 +39,10 @@ async function typeWriter(id, text, speed) {
     }
 }
 
-/**
- * 3. Fungsi Reload
- */
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
+ * 3. FUNGSI UTAMA (SINKRONISASI TOTAL)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -77,16 +73,9 @@ async function terimaMaaf() {
     // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
     
-    // Safety check kalau ID bg-decorations dipindah/dihapus
-    const outerDecor = document.getElementById('bg-decorations');
-    if(outerDecor) outerDecor.style.opacity = '0';
-    
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
-        if(outerDecor) outerDecor.style.display = 'none';
-        
-        // Ganti ke GRID agar sinkron dengan CSS Anti-Geser
-        scene.style.display = 'grid'; 
+        scene.style.display = 'grid'; // AKTIFKAN GRID MODE
     }, 800);
 
     // --- D. MOMEN PUNCAK ---
@@ -94,20 +83,16 @@ async function terimaMaaf() {
     videoWrapper.classList.add('show-video');
     videoEl.playbackRate = 0.75; 
     videoEl.play();
-
     voice.play(); 
 
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 800));
-    
     await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 500));
-    
     await typeWriter("type3", "I hope I can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
-    
     await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
     voice.onended = () => {
@@ -116,7 +101,7 @@ async function terimaMaaf() {
 
     // --- E. AUTO FINISH ---
     music.ontimeupdate = () => {
-        if (music.currentTime >= 276) { 
+        if (music.currentTime >= 272) { 
             scene.style.display = 'none';
             replayScreen.style.display = 'flex';
             setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
