@@ -1,7 +1,14 @@
 /**
- * 1. Logika tombol "Not Yet" lari
+ * 1. LOGIKA TOMBOL "NOT YET" (SAFE ZONE LOGIC)
+ * Dibuat responsif agar tetap berada di dalam viewport HP manapun.
  */
-function pindahTombol() {
+function pindahTombol(e) {
+    // Mencegah "Ghost Click" atau bubbling di layar sentuh
+    if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
     const btn = document.getElementById('btnEngga');
     const daftarPesan = [
         "nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋",
@@ -12,15 +19,23 @@ function pindahTombol() {
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
     
-    const maxX = window.innerWidth - btn.offsetWidth - 50;
-    const maxY = window.innerHeight - btn.offsetHeight - 50;
+    // SAFE ZONE LOGIC: Memberikan margin aman agar tidak menempel pinggir layar
+    const padding = 20; 
+    
+    // Menghitung batas maksimal (Lebar/Tinggi layar - Lebar Tombol - Padding)
+    const maxX = window.innerWidth - btn.offsetWidth - padding;
+    const maxY = window.innerHeight - btn.offsetHeight - padding;
 
-    btn.style.left = Math.random() * maxX + 'px';
-    btn.style.top = Math.random() * maxY + 'px';
+    // Menghasilkan koordinat random dalam batas aman
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+    btn.style.left = randomX + 'px';
+    btn.style.top = randomY + 'px';
 }
 
 /**
- * 2. Animasi mengetik teks
+ * 2. ANIMASI MENGETIK (ASYNC TYPEWRITER)
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -33,12 +48,12 @@ async function typeWriter(id, text, speed) {
 }
 
 /**
- * 3. Fungsi Reload
+ * 3. FUNGSI RELOAD
  */
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SESUAI PILIHAN TORY)
+ * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -48,17 +63,17 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // --- A. SETUP AMPLIFIER ---
+    // --- A. SETUP AMPLIFIER (Khusus buat George) ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
+    gainNode.gain.value = 4.5; // Gain diperkuat agar narasi menonjol
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     // --- B. JALANKAN MUSIK ---
-    music.currentTime = 210; 
+    music.currentTime = 210; // Start di 3:30 (Reff Fix You)
     music.volume = 0;
     music.play();
     
@@ -70,7 +85,6 @@ async function terimaMaaf() {
     // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
     
-    // Cek dulu ID dekorasi luar ada atau nggak biar gak error di console
     const outerDecor = document.getElementById('bg-decorations');
     if (outerDecor) outerDecor.style.opacity = '0';
     
@@ -85,10 +99,9 @@ async function terimaMaaf() {
     videoWrapper.classList.add('show-video');
     videoEl.playbackRate = 0.75; 
     videoEl.play();
-
     voice.play(); 
 
-    // Setingan Speed yang lu rasa udah "Pas"
+    // Setingan Speed (69ms cocok untuk audio narasi ~25 detik)
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
@@ -108,11 +121,10 @@ async function terimaMaaf() {
 
     // --- E. AUTO FINISH ---
     music.ontimeupdate = () => {
-        if (music.currentTime >= 276) { 
+        if (music.currentTime >= 275) { 
             scene.style.display = 'none';
             replayScreen.style.display = 'flex';
             setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
         }
     };
 }
-
