@@ -1,26 +1,30 @@
 /**
- * 1. Logika tombol "Not Yet" lari
+ * 1. LOGIKA TOMBOL "NOT YET" (ANTI-GHOST CLICK)
  */
-function pindahTombol() {
+function pindahTombol(e) {
+    // Stop event bubbling agar tidak memicu klik pada 'Yes' atau scene video
+    if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
     const btn = document.getElementById('btnEngga');
-    const daftarPesan = [
-        "nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋",
-        "pencet iyaa aja gasi!? 😡", "dih maksa! 😭",
-        "gabisa mel sori! 🤪", "sekali lagi mell! 😜"
-    ];
+    const daftarPesan = ["nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋", "pencet iyaa aja gasi!? 😡", "dih maksa! 😭", "gabisa mel sori! 🤪"];
 
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
     
-    const maxX = window.innerWidth - btn.offsetWidth - 50;
-    const maxY = window.innerHeight - btn.offsetHeight - 50;
+    const maxX = window.innerWidth - btn.offsetWidth - 30;
+    const maxY = window.innerHeight - btn.offsetHeight - 30;
 
     btn.style.left = Math.random() * maxX + 'px';
     btn.style.top = Math.random() * maxY + 'px';
+    
+    return false;
 }
 
 /**
- * 2. Animasi mengetik teks
+ * 2. TYPEWRITER EFFECT
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -32,13 +36,10 @@ async function typeWriter(id, text, speed) {
     }
 }
 
-/**
- * 3. Fungsi Reload
- */
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SESUAI PILIHAN TORY)
+ * 3. MAIN MOMENT (SYCHRONIZED)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -48,16 +49,15 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // --- A. SETUP AMPLIFIER ---
+    // SETUP AMPLIFIER
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
-    
-    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
+    gainNode.gain.value = 4.5; // High boost for George
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
-    // --- B. JALANKAN MUSIK ---
+    // START COLDPLAY
     music.currentTime = 210; 
     music.volume = 0;
     music.play();
@@ -67,38 +67,30 @@ async function terimaMaaf() {
         else clearInterval(fadeIn);
     }, 200);
 
-    // --- C. TRANSISI LAYAR ---
+    // UI TRANSITION
     document.getElementById('content-wrapper').style.opacity = '0';
-    
-    // Cek dulu ID dekorasi luar ada atau nggak biar gak error di console
-    const outerDecor = document.getElementById('bg-decorations');
-    if (outerDecor) outerDecor.style.opacity = '0';
-    
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
-        if (outerDecor) outerDecor.style.display = 'none';
         scene.style.display = 'flex';
     }, 800);
 
-    // --- D. MOMEN PUNCAK ---
+    // CINEMATIC MOMENT
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
-    videoEl.playbackRate = 0.8; 
+    videoEl.playbackRate = 0.75; 
     videoEl.play();
-
     voice.play(); 
 
-    // Setingan Speed yang lu rasa udah "Pas"
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 1200)); // Delay between sentences
     
     await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 800));
     
     await typeWriter("type3", "I hope I can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1500));
     
     await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
@@ -106,7 +98,7 @@ async function terimaMaaf() {
         document.getElementById('final-footer').style.display = 'block';
     };
 
-    // --- E. AUTO FINISH ---
+    // AUTO-FINISH DETIK 276
     music.ontimeupdate = () => {
         if (music.currentTime >= 276) { 
             scene.style.display = 'none';
