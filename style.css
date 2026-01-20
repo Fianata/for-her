@@ -25,6 +25,38 @@ body {
 
 .decor { position: absolute; font-size: 25px; opacity: 0.3; animation: floating 5s ease-in-out infinite; pointer-events: none; }
 @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+/* --- DECORATION STYLING --- */
+.decor { 
+    position: absolute; 
+    font-size: 25px; 
+    opacity: 0.3; 
+    animation: floating 5s ease-in-out infinite; 
+    pointer-events: none; 
+    z-index: 1;
+}
+
+/* Staggered Animation: Biar geraknya beda-beda waktu */
+.decor:nth-child(odd) {
+    animation-duration: 4s;
+    animation-delay: 0.5s;
+}
+
+.decor:nth-child(3n) {
+    animation-duration: 6s;
+    animation-delay: 1s;
+    font-size: 30px; /* Ukuran variasi */
+}
+
+.decor:nth-child(4n) {
+    animation-duration: 5.5s;
+    animation-delay: 1.5s;
+    opacity: 0.2; /* Variasi transparansi */
+}
+
+@keyframes floating { 
+    0%, 100% { transform: translateY(0) rotate(0deg); } 
+    50% { transform: translateY(-20px) rotate(10deg); } 
+}
 
 .img-container { width: 130px; height: 175px; margin: 0 auto 1.2rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
 .profile-img { width: 100%; height: 100%; object-fit: cover; }
@@ -82,4 +114,5 @@ button { width: 210px; padding: 15px; border-radius: 50px; border: none; font-we
 #replay-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease; }
 .btn-replay { background: transparent; color: white; border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; }
 .footer-text { font-size: 11px; color: #bbb; margin-top: 20px; }
+
 
