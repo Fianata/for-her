@@ -1,5 +1,6 @@
 /**
- * 1. Logika tombol "Not Yet" lari dan ganti teks
+ * 1. LOGIKA TOMBOL "NOT YET" (RUN AWAY)
+ * Dibuat responsif agar tidak pernah lari keluar batas layar HP manapun.
  */
 function pindahTombol() {
     const btn = document.getElementById('btnEngga');
@@ -12,15 +13,16 @@ function pindahTombol() {
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
     
-    const maxX = window.innerWidth - btn.offsetWidth - 50;
-    const maxY = window.innerHeight - btn.offsetHeight - 50;
+    // Memberikan area aman (padding 30px) agar tombol tidak nempel ke pinggir layar
+    const maxX = window.innerWidth - btn.offsetWidth - 30;
+    const maxY = window.innerHeight - btn.offsetHeight - 30;
 
     btn.style.left = Math.random() * maxX + 'px';
     btn.style.top = Math.random() * maxY + 'px';
 }
 
 /**
- * 2. Animasi mengetik teks
+ * 2. ANIMASI MENGETIK (ASYNC TYPEWRITER)
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -33,7 +35,7 @@ async function typeWriter(id, text, speed) {
 }
 
 /**
- * 3. Fungsi Reload
+ * 3. FUNGSI RELOAD
  */
 function lokasiReload() { window.location.reload(); }
 
@@ -49,12 +51,12 @@ async function terimaMaaf() {
     const replayScreen = document.getElementById('replay-screen');
 
     // --- A. SETUP AMPLIFIER (Khusus buat George) ---
-    // Kita inisialisasi di sini supaya diizinkan oleh Safari iPhone
+    // Diinisialisasi di sini karena browser butuh trigger "klik" untuk menyalakan AudioContext
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    // BOOST VOLUME AI: 3.5x Lipat (Agar nembus musik Coldplay)
+    // BOOST: 3.5x volume agar narasi lebih menonjol di speaker HP
     gainNode.gain.value = 3.5; 
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
@@ -70,29 +72,33 @@ async function terimaMaaf() {
     }, 200);
 
     // --- C. TRANSISI LAYAR ---
+    // Menyembunyikan card utama dan dekorasi luar (jika ada)
     document.getElementById('content-wrapper').style.opacity = '0';
-    document.getElementById('bg-decorations').style.opacity = '0';
+    const outerDecor = document.getElementById('bg-decorations');
+    if (outerDecor) outerDecor.style.opacity = '0';
     
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
-        document.getElementById('bg-decorations').style.display = 'none';
+        if (outerDecor) outerDecor.style.display = 'none';
         scene.style.display = 'flex';
     }, 800);
 
     // --- D. MOMEN PUNCAK (VIDEO & VOICE) ---
+    // Memberikan jeda 2.5 detik agar transisi ke layar hitam terasa dramatis
     await new Promise(r => setTimeout(r, 2500)); 
+    
     videoWrapper.classList.add('show-video');
-    videoEl.playbackRate = 0.8; 
+    videoEl.playbackRate = 0.8; // Sedikit diperlambat agar lebih sinematik
     videoEl.play();
 
     // Jalankan Suara George
     voice.play(); 
 
-    // SINKRONISASI TEKS: Speed 69ms untuk audio 25 detik
+    // SINKRONISASI TEKS: Speed 69ms cocok untuk audio durasi ~25 detik
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 800)); // Jeda antar kalimat
     
     await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 500));
@@ -102,7 +108,7 @@ async function terimaMaaf() {
     
     await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    // Munculkan footer di akhir suara
+    // Munculkan footer setelah George selesai bicara
     voice.onended = () => {
         document.getElementById('final-footer').style.display = 'block';
     };
