@@ -67,7 +67,7 @@ async function terimaMaaf() {
     music.play();
     
     let fadeIn = setInterval(() => {
-        if (music.volume < 0.7) music.volume += 0.05;
+        if (music.volume < 0.5) music.volume += 0.05;
         else clearInterval(fadeIn);
     }, 200);
 
@@ -88,7 +88,7 @@ async function terimaMaaf() {
     await new Promise(r => setTimeout(r, 2500)); 
     
     videoWrapper.classList.add('show-video');
-    videoEl.playbackRate = 0.8; // Sedikit diperlambat agar lebih sinematik
+    videoEl.playbackRate = 0.75; // Sedikit diperlambat agar lebih sinematik
     videoEl.play();
 
     // Jalankan Suara George
@@ -115,10 +115,11 @@ async function terimaMaaf() {
 
     // --- E. AUTO FINISH (Detik 276) ---
     music.ontimeupdate = () => {
-        if (music.currentTime >= 276) { 
+        if (music.currentTime >= 275) { 
             scene.style.display = 'none';
             replayScreen.style.display = 'flex';
             setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
         }
     };
 }
+
