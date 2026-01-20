@@ -1,5 +1,5 @@
 /**
- * 1. Logika tombol "Not Yet" lari dan ganti teks
+ * 1. Logika tombol "Not Yet" lari
  */
 function pindahTombol() {
     const btn = document.getElementById('btnEngga');
@@ -38,7 +38,7 @@ async function typeWriter(id, text, speed) {
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
+ * 4. FUNGSI UTAMA (SESUAI PILIHAN TORY)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -48,47 +48,47 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // --- A. SETUP AMPLIFIER (Khusus buat George) ---
-    // Kita inisialisasi di sini supaya diizinkan oleh Safari iPhone
+    // --- A. SETUP AMPLIFIER ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    // BOOST VOLUME AI: 3.5x Lipat (Agar nembus musik Coldplay)
-    gainNode.gain.value = 4.5; 
+    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     // --- B. JALANKAN MUSIK ---
-    music.currentTime = 210; // Start di 3:30 (Reff Fix You)
+    music.currentTime = 210; 
     music.volume = 0;
     music.play();
     
     let fadeIn = setInterval(() => {
-        if (music.volume < 0.55) music.volume += 0.05;
+        if (music.volume < 0.5) music.volume += 0.05;
         else clearInterval(fadeIn);
     }, 200);
 
     // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
-    document.getElementById('bg-decorations').style.opacity = '0';
+    
+    // Cek dulu ID dekorasi luar ada atau nggak biar gak error di console
+    const outerDecor = document.getElementById('bg-decorations');
+    if (outerDecor) outerDecor.style.opacity = '0';
     
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
-        document.getElementById('bg-decorations').style.display = 'none';
+        if (outerDecor) outerDecor.style.display = 'none';
         scene.style.display = 'flex';
     }, 800);
 
-    // --- D. MOMEN PUNCAK (VIDEO & VOICE) ---
+    // --- D. MOMEN PUNCAK ---
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
     videoEl.playbackRate = 0.75; 
     videoEl.play();
 
-    // Jalankan Suara George
     voice.play(); 
 
-    // SINKRONISASI TEKS: Speed 69ms untuk audio 25 detik
+    // Setingan Speed yang lu rasa udah "Pas"
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
@@ -102,12 +102,11 @@ async function terimaMaaf() {
     
     await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    // Munculkan footer di akhir suara
     voice.onended = () => {
         document.getElementById('final-footer').style.display = 'block';
     };
 
-    // --- E. AUTO FINISH (Detik 276) ---
+    // --- E. AUTO FINISH ---
     music.ontimeupdate = () => {
         if (music.currentTime >= 272) { 
             scene.style.display = 'none';
