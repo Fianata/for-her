@@ -1,7 +1,13 @@
 /**
- * 1. Logika tombol "Not Yet" lari
+ * 1. Logika tombol "Not Yet" lari (DITAMBAH PENGAMAN)
  */
-function pindahTombol() {
+function pindahTombol(e) {
+    // PENGAMAN: Berhenti di sini, jangan teruskan klik ke bawah/belakang
+    if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
     const btn = document.getElementById('btnEngga');
     const daftarPesan = [
         "nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋",
@@ -17,6 +23,8 @@ function pindahTombol() {
 
     btn.style.left = Math.random() * maxX + 'px';
     btn.style.top = Math.random() * maxY + 'px';
+
+    return false; // Pengaman tambahan
 }
 
 /**
@@ -38,7 +46,7 @@ async function typeWriter(id, text, speed) {
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SESUAI PILIHAN TORY)
+ * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -52,8 +60,7 @@ async function terimaMaaf() {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
-    
-    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
+    gainNode.gain.value = 4.5; 
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
@@ -70,14 +77,16 @@ async function terimaMaaf() {
     // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
     
-    // Cek dulu ID dekorasi luar ada atau nggak biar gak error di console
+    // Safety check kalau ID bg-decorations dipindah/dihapus
     const outerDecor = document.getElementById('bg-decorations');
-    if (outerDecor) outerDecor.style.opacity = '0';
+    if(outerDecor) outerDecor.style.opacity = '0';
     
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
-        if (outerDecor) outerDecor.style.display = 'none';
-        scene.style.display = 'flex';
+        if(outerDecor) outerDecor.style.display = 'none';
+        
+        // Ganti ke GRID agar sinkron dengan CSS Anti-Geser
+        scene.style.display = 'grid'; 
     }, 800);
 
     // --- D. MOMEN PUNCAK ---
@@ -88,7 +97,6 @@ async function terimaMaaf() {
 
     voice.play(); 
 
-    // Setingan Speed yang lu rasa udah "Pas"
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
@@ -115,4 +123,3 @@ async function terimaMaaf() {
         }
     };
 }
-
