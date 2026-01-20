@@ -218,7 +218,7 @@ async function terimaMaaf() {
 
     music.ontimeupdate = () => {
 
-        if (music.currentTime >= 276) { 
+        if (music.currentTime >= 275) { 
 
             scene.style.display = 'none';
 
@@ -271,3 +271,4 @@ function pindahTombol(e) {
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
 
     btn.style.position = 'fixed';
+
