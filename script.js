@@ -112,6 +112,16 @@ async function terimaMaaf() {
         document.getElementById('final-footer').style.display = 'block';
     };
 
+    setTimeout(() => {
+        const footer = document.getElementById('final-footer');
+        if (footer) {
+            footer.style.display = 'block';
+            // Paksa opacity ke 1 biar kelihatan kalau pake transition
+            setTimeout(() => { footer.style.opacity = '1'; }, 50);
+        }
+    }, 1000); // Kasih jeda 1 detik biar estetik setelah kalimat terakhir muncul
+}
+
     // AUTO-FINISH (Detik 276 Musik)
     music.ontimeupdate = () => {
         if (music.currentTime >= 275) { 
@@ -121,3 +131,4 @@ async function terimaMaaf() {
         }
     };
 }
+
