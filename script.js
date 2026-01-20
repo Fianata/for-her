@@ -62,7 +62,7 @@ async function terimaMaaf() {
     // VIDEO & VOICE
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
-    videoEl.play();
+    videoEl.play = 0.75;
     voice.play();
 
     // TYPEWRITER
@@ -91,3 +91,4 @@ async function terimaMaaf() {
         }
     };
 }
+
