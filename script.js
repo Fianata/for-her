@@ -1,6 +1,5 @@
 /**
- * 1. LOGIKA TOMBOL "NOT YET" (RUN AWAY)
- * Dibuat responsif agar tidak pernah lari keluar batas layar.
+ * 1. Logika tombol "Not Yet" lari
  */
 function pindahTombol() {
     const btn = document.getElementById('btnEngga');
@@ -13,16 +12,15 @@ function pindahTombol() {
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
     
-    // Memberikan area aman agar tombol tidak nempel ke pinggir layar
-    const maxX = window.innerWidth - btn.offsetWidth - 30;
-    const maxY = window.innerHeight - btn.offsetHeight - 30;
+    const maxX = window.innerWidth - btn.offsetWidth - 50;
+    const maxY = window.innerHeight - btn.offsetHeight - 50;
 
     btn.style.left = Math.random() * maxX + 'px';
     btn.style.top = Math.random() * maxY + 'px';
 }
 
 /**
- * 2. ANIMASI MENGETIK (ASYNC TYPEWRITER)
+ * 2. Animasi mengetik teks
  */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
@@ -35,12 +33,12 @@ async function typeWriter(id, text, speed) {
 }
 
 /**
- * 3. FUNGSI RELOAD
+ * 3. Fungsi Reload
  */
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
+ * 4. FUNGSI UTAMA (SESUAI PILIHAN TORY)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -50,20 +48,17 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // --- A. WEB AUDIO API AMPLIFIER ---
-    // Meningkatkan volume AI George agar menembus musik Coldplay
+    // --- A. SETUP AMPLIFIER ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    gainNode.gain.value = 4.5; // BOOST VOLUME 450%
+    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
-    
-
-    // --- B. JALANKAN MUSIK (COLDPLAY - FIX YOU) ---
-    music.currentTime = 210; // Jump ke bagian Reff
+    // --- B. JALANKAN MUSIK ---
+    music.currentTime = 210; 
     music.volume = 0;
     music.play();
     
@@ -72,28 +67,32 @@ async function terimaMaaf() {
         else clearInterval(fadeIn);
     }, 200);
 
-    // --- C. TRANSISI VISUAL ---
-    // Cukup sembunyikan content-wrapper, dekorasi di dalam ikut hilang
+    // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
+    
+    // Cek dulu ID dekorasi luar ada atau nggak biar gak error di console
+    const outerDecor = document.getElementById('bg-decorations');
+    if (outerDecor) outerDecor.style.opacity = '0';
     
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
+        if (outerDecor) outerDecor.style.display = 'none';
         scene.style.display = 'flex';
     }, 800);
 
-    // --- D. MOMEN SINEMATIK (VIDEO & VOICE) ---
+    // --- D. MOMEN PUNCAK ---
     await new Promise(r => setTimeout(r, 2500)); 
-    
     videoWrapper.classList.add('show-video');
-    videoEl.playbackRate = 0.75; 
+    videoEl.playbackRate = 0.8; 
     videoEl.play();
+
     voice.play(); 
 
-    // Kecepatan ketik (Typo Speed)
+    // Setingan Speed yang lu rasa udah "Pas"
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
-    await new Promise(r => setTimeout(r, 800)); 
+    await new Promise(r => setTimeout(r, 800));
     
     await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 500));
@@ -109,7 +108,7 @@ async function terimaMaaf() {
 
     // --- E. AUTO FINISH ---
     music.ontimeupdate = () => {
-        if (music.currentTime >= 275) { 
+        if (music.currentTime >= 276) { 
             scene.style.display = 'none';
             replayScreen.style.display = 'flex';
             setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
