@@ -1,85 +1,178 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
 :root {
     --pink-soft: #ff85a2;
     --pink-deep: #e91e63;
     --bg-color: #fff0f5;
+    --glass-bg: rgba(255, 255, 255, 0.85); /* Transparansi untuk efek mewah */
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Quicksand', sans-serif;
     background-color: var(--bg-color);
     display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; width: 100vw; overflow: hidden; padding: 20px;
+    min-height: 100vh; overflow: hidden;
 }
 
-/* --- KARTU UTAMA --- */
-#content-wrapper { transition: opacity 0.8s ease; z-index: 10; width: 100%; display: flex; justify-content: center; }
+/* =========================================
+   2. CARD UTAMA (THE FRAME)
+   ========================================= */
+#content-wrapper { 
+    transition: opacity 0.8s ease; 
+    z-index: 10; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+}
 
 .card {
-    position: relative; background: white; padding: 35px 25px; border-radius: 35px;
-    box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
-    text-align: center; width: 100%; max-width: 380px;
-    border: 3px solid var(--pink-soft); overflow: hidden; z-index: 5;
-    animation: entrance 0.8s ease-out;
+    position: relative; /* Anchor wajib agar dekorasi terkunci di dalam */
+    background: white; 
+    padding: 35px 25px; 
+    border-radius: 40px; /* Lebih bulat agar terlihat modern */
+    box-shadow: 0 15px 45px rgba(255, 133, 162, 0.3);
+    text-align: center; 
+    max-width: 340px; 
+    width: 92%;
+    border: 3px solid var(--pink-soft);
+    overflow: hidden; /* MEMOTONG dekorasi yang keluar dari batas kartu */
+    z-index: 5;
 }
 
-@keyframes entrance { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* =========================================
+   3. INNER DECORATIONS (Pita & Bintang)
+   ========================================= */
+#inner-decorations {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; /* Supaya dekorasi tidak menghalangi klik tombol */
+    z-index: 1; /* Di belakang teks & gambar */
+}
 
-#inner-decorations { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-.decor { position: absolute; font-size: 25px; opacity: 0.3; animation: floating 5s ease-in-out infinite; }
-@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.decor {
+    position: absolute; 
+    font-size: 24px; 
+    opacity: 0.3; /* Lebih subtle biar gak ganggu baca teks */
+    animation: floating 5s ease-in-out infinite;
+}
 
-/* ELEMEN KONTEN */
-.img-container { width: 130px; height: 175px; margin: 0 auto 1.2rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
+.decor:nth-child(even) { animation-duration: 6s; animation-delay: 1s; }
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(15deg); }
+}
+
+/* =========================================
+   4. CONTENT ELEMENTS (Z-Index di atas dekorasi)
+   ========================================= */
+.img-container {
+    position: relative;
+    z-index: 2;
+    width: 140px; height: 180px; /* Adjusted ratio */
+    margin: 0 auto 15px;
+    border-radius: 70px; 
+    overflow: hidden; 
+    border: 4px solid var(--pink-soft);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 .profile-img { width: 100%; height: 100%; object-fit: cover; }
-h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 28px; margin-bottom: 10px; }
-p { font-size: 14px; color: #555; line-height: 1.5; }
-.pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin: 10px 0 20px; }
 
-/* TOMBOL INTERAKTIF */
-.btn-container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-button { width: 210px; padding: 15px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
-#btnIya { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); }
-
-/* --- PERBAIKAN: ABU-ABU GELAP --- */
-#btnEngga { 
-    background: #333333; 
-    color: #ffffff; 
-    font-size: 12px;
+h1 { 
+    position: relative; z-index: 2;
+    font-family: 'Dancing Script', cursive; 
+    color: var(--pink-deep); 
+    margin-bottom: 12px; 
+    font-size: 28px; 
 }
 
-/* --- SCENE SINEMATIK (NEON BOOSTED) --- */
+p { position: relative; z-index: 2; font-size: 14px; color: #555; }
+
+.pro-tip {
+    position: relative; z-index: 2;
+    font-size: 11px !important;
+    color: #999;
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   5. BUTTONS & INTERACTION
+   ========================================= */
+.btn-container { 
+    position: relative; 
+    z-index: 3; /* Paling depan agar lancar diklik */
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    align-items: center; 
+    margin-top: 20px; 
+}
+
+button { 
+    width: 200px; 
+    padding: 15px; 
+    border-radius: 50px; 
+    border: none; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    font-family: 'Quicksand', sans-serif; 
+}
+
+#btnIya { 
+    background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); 
+    color: white; 
+    box-shadow: 0 8px 20px rgba(255, 133, 162, 0.4);
+}
+
+#btnIya:hover { transform: scale(1.05); }
+
+#btnEngga { background: #000000; color: white; font-size: 12px; opacity: 0.8; }
+
+.footer-text { font-size: 10px; color: #bbb; margin-top: 20px; font-style: italic; }
+
+/* =========================================
+   6. DRAMATIC SCENE & REPLAY (STAY THE SAME)
+   ========================================= */
 #dramatic-scene {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #1a050a 0%, #000 100%);
+    background: radial-gradient(circle, #2d0a15 0%, #000000 85%);
     z-index: 9999; display: none;
-    grid-template-areas: "scene"; place-items: center;
+    flex-direction: column; align-items: center; justify-content: center; padding: 25px;
 }
 
 .video-wrapper-landscape {
-    grid-area: scene; position: relative; width: 95%; max-width: 500px; aspect-ratio: 16 / 9;
-    border-radius: 20px; overflow: hidden;
-    /* NEON VIDEO BOOST */
-    box-shadow: 0 0 50px rgba(255, 133, 162, 0.6), 0 0 20px rgba(0, 0, 0, 0.8);
-    opacity: 0; transform: scale(0.95);
-    transition: all 2.5s ease-in-out;
-}
-.video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); }
-#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
-
-/* SUBTITLE POSITIONING */
-#dramatic-text-container { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; text-align: center; z-index: 100; }
-.drama-text { color: white; font-size: clamp(14px, 4.5vw, 17px); margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,1); line-height: 1.5; }
-
-/* NEON TEXT BOOST (LAYERED) */
-.neon-pink { 
-    color: #ffffff;
-    font-weight: bold;
-    text-shadow: 
-        0 0 5px #fff, 
-        0 0 15px var(--pink-soft), 
-        0 0 30px var(--pink-deep); 
+    position: relative; width: 95%; max-width: 450px; aspect-ratio: 16 / 9;
+    border-radius: 15px; overflow: hidden; opacity: 0; transform: scale(0.9);
+    transition: opacity 3s ease-in-out, transform 3.5s ease-in-out; margin-bottom: 25px;
 }
 
-.footer-text { font-size: 11px; color: #bbb; margin-top: 20px; }
+.video-wrapper-landscape.show-video {
+    opacity: 1; transform: scale(1);
+    box-shadow: 0 0 40px var(--pink-soft), 0 0 80px var(--pink-deep);
+}
 
+#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65); opacity: 0.6; }
+
+.drama-text { color: white; font-size: 14px; text-align: center; margin-bottom: 10px; min-height: 1.2em; }
+.neon-pink { color: #ff85a2; text-shadow: 0 0 10px #ff85a2, 0 0 20px #e91e63; }
+
+#replay-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 10000; display: none;
+    justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease;
+}
+
+.btn-replay {
+    background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft);
+    padding: 15px 30px; border-radius: 50px; cursor: pointer;
+}
+
+.fade-out-all { opacity: 0 !important; transition: opacity 3s ease-in-out !important; }
