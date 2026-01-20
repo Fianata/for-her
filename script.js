@@ -49,13 +49,14 @@ async function terimaMaaf() {
     voice.play(); 
 
     const typoSpeed = 69; 
-    await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
+    await typeWriter("type1", "in the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
-    await typeWriter("type2", "Just like the lyrics in your photo, 'Lights will guide you home'...", typoSpeed);
+    await typeWriter("type2", "just like the lyrics in your photo, 'lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 800));
-    await typeWriter("type3", "I hope I can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
+    await typeWriter("type3", "i hope i can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
     await new Promise(r => setTimeout(r, 1200));
-    await typeWriter("type4", "This is truly coming from the bottom of my heart. :)", typoSpeed);
+    await typeWriter("type4", "this is truly coming from the bottom of my heart. :)", typoSpeed);
 
     voice.onended = () => { document.getElementById('final-footer').style.display = 'block'; };
 }
+
