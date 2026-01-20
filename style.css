@@ -1,77 +1,74 @@
-:root {
-    --pink-soft: #ff85a2;
-    --pink-deep: #e91e63;
-    --bg-color: #fff0f5;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Quicksand', sans-serif;
-    background-color: var(--bg-color);
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; width: 100vw; overflow: hidden; padding: 20px;
-}
-
-/* --- KARTU UTAMA --- */
-.card {
-    position: relative; background: white; padding: 35px 25px; border-radius: 35px;
-    box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
-    text-align: center; width: 100%; max-width: 380px;
-    border: 3px solid var(--pink-soft); overflow: hidden; z-index: 5;
-}
-
-#inner-decorations { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-.decor { position: absolute; font-size: 25px; opacity: 0.3; animation: floating 5s ease-in-out infinite; }
-@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-/* FOTO & TEKS */
-.img-container { width: 130px; height: 175px; margin: 0 auto 1.2rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
-.profile-img { width: 100%; height: 100%; object-fit: cover; }
-h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 28px; margin-bottom: 10px; }
-p { font-size: 14px; color: #555; line-height: 1.5; }
-.pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin-bottom: 20px; }
-
-/* TOMBOL (DENGAN GAP 25PX) */
-.btn-container { display: flex; flex-direction: column; gap: 25px; align-items: center; }
-button { width: 210px; padding: 15px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
-#btnIya { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); }
-
-/* Tombol Not Yet: Abu-abu Gelap */
-#btnEngga { background: #333333; color: #ffffff; font-size: 12px; }
-
-/* --- SCENE SINEMATIK (ULTRA NEON) --- */
+/* =========================================
+   6. DRAMATIC SCENE (CINEMATIC FIXED VERSION)
+   ========================================= */
 #dramatic-scene {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #1a050a 0%, #000 100%);
+    /* Background digawe lebih gelap biar fokus ke video */
+    background: radial-gradient(circle at center, #1a050a 0%, #000000 100%);
     z-index: 9999; display: none;
-    grid-template-areas: "scene"; place-items: center;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; /* Video tetap di tengah vertikal */
+    padding: 20px;
 }
-
-
 
 .video-wrapper-landscape {
-    grid-area: scene; position: relative; width: 95%; max-width: 500px; aspect-ratio: 16 / 9;
-    border-radius: 20px; overflow: hidden;
-    /* Efek Neon Video */
-    box-shadow: 0 0 50px rgba(255, 133, 162, 0.6), 0 0 20px rgba(0, 0, 0, 0.8);
-    opacity: 0; transform: scale(0.95);
-    transition: all 2.5s ease-in-out;
+    position: relative; 
+    width: 100%; 
+    max-width: 600px; /* Lebarin dikit videonya biar puas */
+    aspect-ratio: 16 / 9;
+    border-radius: 12px; 
+    overflow: hidden; 
+    opacity: 0; 
+    transform: scale(0.95);
+    transition: opacity 2s ease, transform 2.5s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8); /* Shadow tebal biar cinematic */
+    /* margin-bottom dihapus biar posisinya bener-bener di tengah */
 }
-.video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); }
-#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75); }
 
-/* SUBTITLE */
-#dramatic-text-container { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; text-align: center; z-index: 100; }
-.drama-text { color: white; font-size: clamp(14px, 4.5vw, 17px); margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,1); line-height: 1.5; }
+.video-wrapper-landscape.show-video {
+    opacity: 1; 
+    transform: scale(1);
+}
 
-/* NEON TEXT */
+#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); /* Gelapin dikit videonya */ }
+
+/* --- PERBAIKAN UTAMA DI SINI --- */
+#dramatic-text-container {
+    /* Kita cabut dari flex flow dan tempel di bawah */
+    position: absolute; 
+    bottom: 10%; /* Jarak dari bawah layar */
+    left: 50%;
+    transform: translateX(-50%); /* Biar pas di tengah horizontal */
+    
+    width: 90%;
+    max-width: 600px; /* Lebar teks nyamain lebar video */
+    text-align: center;
+    z-index: 10000; /* Pastiin di atas segalanya */
+    
+    /* Optional: Kasih background tipis biar teks kebaca jelas kalau videonya terang */
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    border-radius: 10px;
+}
+
+.drama-text { 
+    color: rgba(255, 255, 255, 0.95); 
+    font-family: 'Quicksand', sans-serif; /* Pake font yang gampang dibaca */
+    font-size: clamp(15px, 5vw, 18px); /* Ukuran font responsif */
+    line-height: 1.6;
+    margin-bottom: 0.8rem; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Shadow teks biar tajem */
+}
+
 .neon-pink { 
-    color: #ffffff; font-weight: bold;
-    text-shadow: 0 0 5px #fff, 0 0 15px var(--pink-soft), 0 0 30px var(--pink-deep); 
+    color: var(--pink-soft); 
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 133, 162, 0.8);
 }
 
-/* REPLAY */
-#replay-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease; }
-.btn-replay { background: transparent; color: white; border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; }
-.footer-text { font-size: 11px; color: #bbb; margin-top: 20px; }
+#final-footer {
+     /* Memastikan footer juga rapi di dalam container absolut */
+     position: relative;
+     margin-top: 2rem;
+}
