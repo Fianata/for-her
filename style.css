@@ -49,7 +49,7 @@ body {
 h1, p, .btn-container, .footer-text { position: relative; z-index: 2; }
 h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 28px; }
 p { font-size: 14px; color: #555; line-height: 1.5; margin-top: 10px; }
-.pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin-bottom: 15px; }
+.pro-tip { font-size: 11px !important; color: #555; font-style: italic; margin-bottom: 15px; }
 
 /* --- BUTTONS --- */
 .btn-container { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 15px; }
@@ -97,3 +97,4 @@ button {
 }
 .btn-replay { background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; }
 .fade-out-all { opacity: 0 !important; transition: opacity 3s ease !important; }
+
