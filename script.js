@@ -52,7 +52,7 @@ async function terimaMaaf() {
 
     // START MUSIC
     music.currentTime = 210; 
-    music.volume = 0.5;
+    music.volume = 0.55;
     music.play();
 
     // TRANSISI LAYAR
@@ -82,3 +82,4 @@ async function terimaMaaf() {
         document.getElementById('final-footer').style.display = 'block';
     };
 }
+
