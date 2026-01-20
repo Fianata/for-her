@@ -1,11 +1,7 @@
-/* =========================================
-   1. CORE VARIABLES & RESET
-   ========================================= */
 :root {
     --pink-soft: #ff85a2;
     --pink-deep: #e91e63;
     --bg-color: #fff0f5;
-    --text-color: #444;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,17 +13,7 @@ body {
     min-height: 100vh; width: 100vw; overflow: hidden;
 }
 
-/* =========================================
-   2. THE ENCAPSULATED CARD
-   ========================================= */
-#content-wrapper { 
-    transition: opacity 0.8s ease; 
-    z-index: 10; 
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-}
-
+/* --- THE CARD --- */
 .card {
     position: relative;
     background: white; padding: clamp(1.5rem, 5vw, 2.5rem); border-radius: 35px;
@@ -36,9 +22,7 @@ body {
     border: 3px solid var(--pink-soft); overflow: hidden; z-index: 5;
 }
 
-/* =========================================
-   3. INNER DECORATIONS
-   ========================================= */
+/* --- INNER DECORATIONS --- */
 #inner-decorations {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none; z-index: 1;
@@ -54,9 +38,7 @@ body {
     50% { transform: translateY(-15px) rotate(10deg); }
 }
 
-/* =========================================
-   4. CONTENT ELEMENTS
-   ========================================= */
+/* --- PROFILE & TEXT --- */
 .img-container {
     position: relative; z-index: 2; width: 130px; height: 175px;
     margin: 0 auto 1.2rem; border-radius: 65px; overflow: hidden;
@@ -69,9 +51,7 @@ h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size:
 p { font-size: 14px; color: #555; line-height: 1.5; margin-top: 10px; }
 .pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin-bottom: 15px; }
 
-/* =========================================
-   5. INTERACTIVE BUTTONS
-   ========================================= */
+/* --- BUTTONS --- */
 .btn-container { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 15px; }
 button { 
     width: 200px; padding: 14px; border-radius: 50px; border: none; 
@@ -80,87 +60,40 @@ button {
 #btnIya { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; }
 #btnEngga { background: #000; color: white; font-size: 12px; }
 
-/* =========================================
-   6. DRAMATIC SCENE (CINEMATIC FIXED)
-   ========================================= */
+/* --- DRAMATIC SCENE (CINEMATIC FIXED) --- */
 #dramatic-scene {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at center, #1a050a 0%, #000 100%);
-    z-index: 9999; 
-    display: none; /* Changed to Grid via JS/Display Logic */
-    
-    /* PENTING: Gunakan Grid untuk mengunci posisi elemen */
-    display: none; 
-    grid-template-areas: "stack";
-    place-items: center;
+    z-index: 9999; display: none;
+    flex-direction: column; align-items: center; justify-content: center;
 }
 
 .video-wrapper-landscape {
-    grid-area: stack; /* Mengunci video di tengah grid */
-    position: relative; 
-    width: 95%; 
-    max-width: 500px; 
-    aspect-ratio: 16 / 9;
-    border-radius: 15px; 
-    overflow: hidden; 
-    opacity: 0; 
-    transform: scale(0.95);
+    position: relative; width: 100%; max-width: 500px; aspect-ratio: 16 / 9;
+    border-radius: 15px; overflow: hidden; opacity: 0; transform: scale(0.95);
     transition: opacity 3s ease, transform 3.5s ease;
-    z-index: 10;
 }
+.video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
 
-.video-wrapper-landscape.show-video { 
-    opacity: 1; 
-    transform: scale(1); 
-    box-shadow: 0 0 50px rgba(0,0,0,0.9); 
-}
 
-#us-video { 
-    width: 100%; height: 100%; object-fit: cover; 
-    filter: brightness(0.65); 
-}
 
-/* --- THE FIX: Subtitle Positioned Absolutely to the Screen --- */
+/* THE FIX: Subtitle positioned absolute so it doesn't push the video */
 #dramatic-text-container {
-    position: absolute; 
-    bottom: 10%; /* Terkunci di bawah layar, tidak memengaruhi video */
-    left: 50%; 
-    transform: translateX(-50%);
-    width: 85%; 
-    max-width: 500px; 
-    text-align: center; 
-    z-index: 10000;
-    pointer-events: none; /* Biar gak ganggu interaksi lain */
+    position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 500px; text-align: center; z-index: 10000;
 }
-
 .drama-text { 
-    color: rgba(255, 255, 255, 0.9); 
-    font-size: clamp(14px, 4.5vw, 17px); 
-    margin-bottom: 0.6rem; 
-    /* Shadow tebal agar tetap terbaca meski video terang */
-    text-shadow: 2px 2px 8px rgba(0,0,0,1); 
-    line-height: 1.5;
-    min-height: 1.2em;
+    color: white; font-size: clamp(14px, 4.5vw, 17px); margin-bottom: 0.5rem; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.5;
 }
+.neon-pink { color: var(--pink-soft); text-shadow: 0 0 10px var(--pink-soft); font-weight: bold; }
 
-.neon-pink { 
-    color: var(--pink-soft); 
-    text-shadow: 0 0 10px var(--pink-soft), 0 0 20px var(--pink-deep); 
-    font-weight: bold; 
-}
-
-/* =========================================
-   7. REPLAY & UTILS
-   ========================================= */
+/* --- REPLAY --- */
 #replay-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #000; z-index: 10000; display: none;
     justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease;
 }
-
-.btn-replay { 
-    background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft); 
-    padding: 15px 30px; border-radius: 50px; cursor: pointer; font-weight: bold;
-}
-
+.btn-replay { background: transparent; color: var(--pink-soft); border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; }
 .fade-out-all { opacity: 0 !important; transition: opacity 3s ease !important; }
