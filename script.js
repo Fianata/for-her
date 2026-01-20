@@ -53,7 +53,7 @@ async function terimaMaaf() {
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    gainNode.gain.value = 4.5; // Lu mau di 3.5x, aman bre
+    gainNode.gain.value = 3.5; // Lu mau di 3.5x, aman bre
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
@@ -63,7 +63,7 @@ async function terimaMaaf() {
     music.play();
     
     let fadeIn = setInterval(() => {
-        if (music.volume < 0.5) music.volume += 0.05;
+        if (music.volume < 0.55) music.volume += 0.05;
         else clearInterval(fadeIn);
     }, 200);
 
