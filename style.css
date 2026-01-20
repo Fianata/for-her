@@ -3,7 +3,6 @@
     --pink-deep: #e91e63;
     --bg-color: #fff0f5;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -83,3 +82,4 @@ button { width: 210px; padding: 15px; border-radius: 50px; border: none; font-we
 }
 
 .footer-text { font-size: 11px; color: #bbb; margin-top: 20px; }
+
