@@ -57,7 +57,7 @@ async function terimaMaaf() {
     const gainNode = audioCtx.createGain();
     
     // BOOST: 3.5x volume agar narasi lebih menonjol di speaker HP
-    gainNode.gain.value = 3.5; 
+    gainNode.gain.value = 4.5; 
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
@@ -122,4 +122,5 @@ async function terimaMaaf() {
         }
     };
 }
+
 
