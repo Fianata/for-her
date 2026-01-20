@@ -121,10 +121,11 @@ async function terimaMaaf() {
 
     // --- E. AUTO FINISH ---
     music.ontimeupdate = () => {
-        if (music.currentTime >= 275) { 
+        if (music.currentTime >= 274) { 
             scene.style.display = 'none';
             replayScreen.style.display = 'flex';
             setTimeout(() => { replayScreen.style.opacity = '1'; }, 100);
         }
     };
 }
+
