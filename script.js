@@ -34,7 +34,7 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // SETUP AUDIO
+    // SETUP AUDIO ENGINE
     try {
         if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -47,25 +47,25 @@ async function terimaMaaf() {
         if (audioCtx.state === 'suspended') await audioCtx.resume();
     } catch (e) { console.log(e); }
 
-    // START MUSIC
     music.currentTime = 210; 
     music.volume = 0.5;
     music.play();
 
-    // TRANSISI
     document.getElementById('content-wrapper').style.opacity = '0';
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
         scene.style.display = 'flex'; 
     }, 800);
 
-    // VIDEO & VOICE
+    // VIDEO & VOICE SYNC
     await new Promise(r => setTimeout(r, 2500)); 
     videoWrapper.classList.add('show-video');
-    videoEl.play = 0.75;
+    
+    // ATUR KECEPATAN VIDEO (PLAYBACKRATE)
+    videoEl.playbackRate = 0.75; 
+    videoEl.play().catch(() => { videoEl.muted = true; videoEl.play(); });
     voice.play();
 
-    // TYPEWRITER
     const typoSpeed = 69; 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
@@ -75,14 +75,14 @@ async function terimaMaaf() {
     await new Promise(r => setTimeout(r, 1200));
     await typeWriter("type4", "this is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    // FOOTER MUNCUL SETELAH TEKS BERES
+    // FOOTER MUNCUL
     const footer = document.getElementById('final-footer');
     if (footer) {
         footer.style.display = 'block';
         setTimeout(() => { footer.style.opacity = '1'; }, 50);
     }
 
-    // AUTO-FINISH (HARUS DI DALAM FUNGSI TERIMAMAAF)
+    // AUTO-FINISH
     music.ontimeupdate = () => {
         if (music.currentTime >= 275) { 
             scene.style.display = 'none';
@@ -91,4 +91,3 @@ async function terimaMaaf() {
         }
     };
 }
-
