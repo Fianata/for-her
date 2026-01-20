@@ -1,9 +1,9 @@
 /**
- * 1. LOGIKA TOMBOL "NOT YET" (SAFE ZONE LOGIC)
- * Dibuat responsif agar tetap berada di dalam viewport HP manapun.
+ * 1. LOGIKA TOMBOL "NOT YET" (SAFE ZONE)
+ * Menggunakan logika matematika agar tombol tidak pernah keluar dari layar HP.
  */
 function pindahTombol(e) {
-    // Mencegah "Ghost Click" atau bubbling di layar sentuh
+    // PENGAMAN: Mencegah klik bocor/tembus ke elemen di belakang (Event Bubbling)
     if (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -19,19 +19,19 @@ function pindahTombol(e) {
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
     
-    // SAFE ZONE LOGIC: Memberikan margin aman agar tidak menempel pinggir layar
-    const padding = 20; 
-    
-    // Menghitung batas maksimal (Lebar/Tinggi layar - Lebar Tombol - Padding)
+    // SAFE ZONE CALCULATION
+    const padding = 20; // Jarak minimal dari pinggir layar
     const maxX = window.innerWidth - btn.offsetWidth - padding;
     const maxY = window.innerHeight - btn.offsetHeight - padding;
 
-    // Menghasilkan koordinat random dalam batas aman
+    // Koordinat random dalam batas aman (tidak akan pernah negatif atau lebih dari lebar layar)
     const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
     const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
     btn.style.left = randomX + 'px';
     btn.style.top = randomY + 'px';
+
+    return false;
 }
 
 /**
@@ -53,7 +53,7 @@ async function typeWriter(id, text, speed) {
 function lokasiReload() { window.location.reload(); }
 
 /**
- * 4. FUNGSI UTAMA (SINKRONISASI TOTAL)
+ * 4. FUNGSI UTAMA (SINKRONISASI TOTAL - FLEX MODE)
  */
 async function terimaMaaf() {
     const music = document.getElementById('bgMusic');
@@ -63,17 +63,19 @@ async function terimaMaaf() {
     const videoEl = document.getElementById('us-video');
     const replayScreen = document.getElementById('replay-screen');
 
-    // --- A. SETUP AMPLIFIER (Khusus buat George) ---
+    // --- A. SETUP AMPLIFIER (BOOST 4.5X) ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioCtx.createMediaElementSource(voice);
     const gainNode = audioCtx.createGain();
     
-    gainNode.gain.value = 4.5; // Gain diperkuat agar narasi menonjol
+    gainNode.gain.value = 4.5; 
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
+    
+
     // --- B. JALANKAN MUSIK ---
-    music.currentTime = 210; // Start di 3:30 (Reff Fix You)
+    music.currentTime = 210; 
     music.volume = 0;
     music.play();
     
@@ -85,13 +87,16 @@ async function terimaMaaf() {
     // --- C. TRANSISI LAYAR ---
     document.getElementById('content-wrapper').style.opacity = '0';
     
+    // Cek ID dekorasi agar tidak error
     const outerDecor = document.getElementById('bg-decorations');
     if (outerDecor) outerDecor.style.opacity = '0';
     
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
         if (outerDecor) outerDecor.style.display = 'none';
-        scene.style.display = 'flex';
+        
+        // KEMBALI KE FLEXBOX (Sesuai struktur awal lu)
+        scene.style.display = 'flex'; 
     }, 800);
 
     // --- D. MOMEN PUNCAK ---
@@ -101,7 +106,6 @@ async function terimaMaaf() {
     videoEl.play();
     voice.play(); 
 
-    // Setingan Speed (69ms cocok untuk audio narasi ~25 detik)
     const typoSpeed = 69; 
 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
@@ -128,4 +132,3 @@ async function terimaMaaf() {
         }
     };
 }
-
