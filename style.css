@@ -38,7 +38,7 @@ body {
     text-align: center; width: 100%; max-width: 380px;
     border: 3px solid var(--pink-soft); 
     overflow: visible; 
-    min-height: 520px;
+    min-height: 560px;
     z-index: 5;
 }
 
@@ -106,4 +106,5 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
     color: var(--pink-deep);
     margin: 5px 0;
 }
+
 
