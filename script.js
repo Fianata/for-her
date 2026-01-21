@@ -149,7 +149,7 @@ async function lanjutKeVideo() {
     let hasFadedOut = false;
     music.ontimeupdate = () => {
         // Mulai fade out 3 detik sebelum scene berakhir (di detik 272)
-        if (music.currentTime >= 275 && !hasFadedOut) {
+        if (music.currentTime >= 276 && !hasFadedOut) {
             hasFadedOut = true;
             fadeOut(music, () => {
                 scene.style.display = 'none';
@@ -159,3 +159,4 @@ async function lanjutKeVideo() {
         }
     };
 }
+
