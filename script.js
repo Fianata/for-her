@@ -122,7 +122,7 @@ async function lanjutKeVideo() {
     }
 
     // -- MULAI FIX YOU DENGAN FADE IN --
-    music.currentTime = 210; 
+    music.currentTime = 211; 
     music.play();
     fadeIn(music, 0.5); // Naik perlahan ke volume 0.5
 
@@ -159,5 +159,6 @@ async function lanjutKeVideo() {
         }
     };
 }
+
 
 
