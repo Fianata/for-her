@@ -33,9 +33,47 @@ async function typeWriter(id, text, speed) {
 }
 
 /**
- * 3. TAHAP 1: PINDAH KE KARTU PESAN
+ * 3. AUDIO ENGINE (FADE IN & FADE OUT)
+ */
+function fadeOut(audio, callback) {
+    let vol = audio.volume;
+    let interval = setInterval(() => {
+        if (vol > 0.02) {
+            vol -= 0.02;
+            audio.volume = Math.max(0, vol);
+        } else {
+            audio.pause();
+            clearInterval(interval);
+            if (callback) callback();
+        }
+    }, 150); 
+}
+
+function fadeIn(audio, targetVol) {
+    audio.volume = 0;
+    let vol = 0;
+    let interval = setInterval(() => {
+        if (vol < targetVol) {
+            vol += 0.02;
+            audio.volume = Math.min(targetVol, vol);
+        } else {
+            clearInterval(interval);
+        }
+    }, 150);
+}
+
+/**
+ * 4. TAHAP 1: PINDAH KE KARTU PESAN & KONFIGURASI PIANO
  */
 async function terimaMaaf() {
+    const ambient = document.getElementById('ambientMusic');
+    
+    // Konfigurasi Piano Amiin Paling Serius (0.9x speed, start at 33s)
+    ambient.currentTime = 33;
+    ambient.playbackRate = 0.9;
+    ambient.volume = 0.25;
+    ambient.play().catch(() => { console.log("Autoplay blocked"); });
+
     document.getElementById('content-wrapper').style.opacity = '0';
     setTimeout(() => {
         document.getElementById('content-wrapper').style.display = 'none';
@@ -44,24 +82,26 @@ async function terimaMaaf() {
         setTimeout(() => { thankyouWrapper.classList.add('show'); }, 50);
     }, 800);
 
-    // Initial Audio Context (User Gesture)
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 }
 
 /**
- * 4. TAHAP 2: MASUK KE VIDEO SINEMATIK
+ * 5. TAHAP 2: MASUK KE VIDEO SINEMATIK (FADE EFFECTS)
  */
 async function lanjutKeVideo() {
-    const music = document.getElementById('bgMusic');
+    const ambient = document.getElementById('ambientMusic'); 
+    const music = document.getElementById('bgMusic');      
     const voice = document.getElementById('voiceAI');
     const scene = document.getElementById('dramatic-scene');
     const videoWrapper = document.querySelector('.video-wrapper-landscape');
     const videoEl = document.getElementById('us-video');
     const thankyouWrapper = document.getElementById('thankyou-card-wrapper');
 
-    // Resume Audio for Mobile
+    // Fade Out Piano pas tombol diklik
+    fadeOut(ambient);
+
     if (audioCtx && audioCtx.state === 'suspended') { await audioCtx.resume(); }
 
     thankyouWrapper.classList.remove('show');
@@ -70,22 +110,24 @@ async function lanjutKeVideo() {
         scene.style.display = 'flex'; 
     }, 800);
 
-    // SETUP AUDIO NODES (VOICE BOOST)
+    // Jeda hening sebelum video mulai
+    await new Promise(r => setTimeout(r, 2500)); 
+
     if (!voiceSource) {
         audioGain = audioCtx.createGain();
-        audioGain.gain.value = 4.5;
+        audioGain.gain.value = 4.0;
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain);
         audioGain.connect(audioCtx.destination);
     }
 
+    // -- MULAI FIX YOU DENGAN FADE IN --
     music.currentTime = 210; 
-    music.volume = 0.5;
     music.play();
+    fadeIn(music, 0.5); // Naik perlahan ke volume 0.5
 
     await new Promise(r => setTimeout(r, 2000)); 
     
-    // VIDEO CONFIG
     videoEl.muted = true;
     videoEl.playbackRate = 0.75;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
@@ -103,11 +145,17 @@ async function lanjutKeVideo() {
     document.getElementById('final-footer').style.display = 'block';
     setTimeout(() => { document.getElementById('final-footer').style.opacity = '1'; }, 50);
     
+    // -- LOGIKA FADE OUT DI AKHIR VIDEO --
+    let hasFadedOut = false;
     music.ontimeupdate = () => {
-        if (music.currentTime >= 275) { 
-            scene.style.display = 'none';
-            document.getElementById('replay-screen').style.display = 'flex';
-            setTimeout(() => { document.getElementById('replay-screen').style.opacity = '1'; }, 100);
+        // Mulai fade out 3 detik sebelum scene berakhir (di detik 272)
+        if (music.currentTime >= 272 && !hasFadedOut) {
+            hasFadedOut = true;
+            fadeOut(music, () => {
+                scene.style.display = 'none';
+                document.getElementById('replay-screen').style.display = 'flex';
+                setTimeout(() => { document.getElementById('replay-screen').style.opacity = '1'; }, 100);
+            });
         }
     };
 }
