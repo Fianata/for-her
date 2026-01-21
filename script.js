@@ -111,7 +111,7 @@ async function lanjutKeVideo() {
     }, 800);
 
     // Jeda hening sebelum video mulai
-    await new Promise(r => setTimeout(r, 2500)); 
+    await new Promise(r => setTimeout(r, 2000)); 
 
     if (!voiceSource) {
         audioGain = audioCtx.createGain();
@@ -122,14 +122,14 @@ async function lanjutKeVideo() {
     }
 
     // -- MULAI FIX YOU DENGAN FADE IN --
-    music.currentTime = 208; 
+    music.currentTime = 210; 
     music.play();
     fadeIn(music, 0.5); // Naik perlahan ke volume 0.5
 
     await new Promise(r => setTimeout(r, 2000)); 
     
     videoEl.muted = true;
-    videoEl.playbackRate = 0.72;
+    videoEl.playbackRate = 0.75;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
@@ -149,7 +149,7 @@ async function lanjutKeVideo() {
     let hasFadedOut = false;
     music.ontimeupdate = () => {
         // Mulai fade out 3 detik sebelum scene berakhir (di detik 272)
-        if (music.currentTime >= 273.5 && !hasFadedOut) {
+        if (music.currentTime >= 275 && !hasFadedOut) {
             hasFadedOut = true;
             fadeOut(music, () => {
                 scene.style.display = 'none';
@@ -159,6 +159,7 @@ async function lanjutKeVideo() {
         }
     };
 }
+
 
 
 
