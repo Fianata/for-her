@@ -71,7 +71,7 @@ async function terimaMaaf() {
     // Konfigurasi Piano Amiin Paling Serius (0.9x speed, start at 33s)
     ambient.currentTime = 33;
     ambient.playbackRate = 0.9;
-    ambient.volume = 0.25;
+    ambient.volume = 0.20;
     ambient.play().catch(() => { console.log("Autoplay blocked"); });
 
     document.getElementById('content-wrapper').style.opacity = '0';
@@ -122,14 +122,14 @@ async function lanjutKeVideo() {
     }
 
     // -- MULAI FIX YOU DENGAN FADE IN --
-    music.currentTime = 211; 
+    music.currentTime = 208; 
     music.play();
     fadeIn(music, 0.5); // Naik perlahan ke volume 0.5
 
     await new Promise(r => setTimeout(r, 2000)); 
     
     videoEl.muted = true;
-    videoEl.playbackRate = 0.7;
+    videoEl.playbackRate = 0.72;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
@@ -159,6 +159,7 @@ async function lanjutKeVideo() {
         }
     };
 }
+
 
 
 
