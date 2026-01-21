@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Imellia Dwi Rahayu 🎀</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,23 +13,11 @@
         <div class="card" id="mainCard">
             <div id="inner-decorations">
                 <div class="decor" style="top:5%; left:5%;">🎀</div>
-    <div class="decor" style="top:10%; right:15%;">✨</div>
-    <div class="decor" style="top:20%; left:25%;">🌸</div>
-    <div class="decor" style="top:15%; right:35%;">☁️</div>
-
-    <div class="decor" style="top:45%; left:-5%;">💖</div>
-    <div class="decor" style="top:50%; right:-5%;">🎀</div>
-    <div class="decor" style="top:40%; left:30%;">✨</div>
-    <div class="decor" style="top:55%; right:25%;">🌸</div>
-
-    <div class="decor" style="bottom:15%; left:10%;">✨</div>
-    <div class="decor" style="bottom:5%; right:10%;">🎀</div>
-    <div class="decor" style="bottom:20%; right:40%;">☁️</div>
-    <div class="decor" style="bottom:10%; left:30%;">💖</div>
-    
-    <div class="decor" style="top:30%; right:5%;">🌸</div>
-    <div class="decor" style="bottom:35%; left:5%;">✨</div>
-                
+                <div class="decor" style="top:12%; right:10%;">✨</div>
+                <div class="decor" style="top:25%; left:15%;">🌸</div>
+                <div class="decor" style="top:40%; right:5%;">💖</div>
+                <div class="decor" style="bottom:10%; right:15%;">🎀</div>
+                <div class="decor" style="bottom:25%; left:10%;">✨</div>
             </div>
 
             <div class="img-container">
@@ -38,12 +25,39 @@
             </div>
 
             <h1>udah di maafin kan mel?</h1>
-            <p>special interactive page for my favorite <i>sasing</i> student. biar aku lega, tolong dijawab yaa mell. jangan kabur dulu kalo selesai jawab yaa wkwk</p>
-            <p class="pro-tip">pro tip: don't waste energy tapping "not yet" 🤪</p>
+            <p>special interactive page for my favorite <i>sasing</i> student. biar aku lega, tolong dijawab yaa mell. jangan kabur dulu sebelum videonya beres yaa wkwk</p>
             
             <div class="btn-container">
                 <button id="btnIya" type="button" onclick="terimaMaaf()">yes, of course! 💖</button>
                 <button id="btnEngga" type="button" onmouseover="pindahTombol(event)" onclick="pindahTombol(event)">not yet 😔</button>
+            </div>
+            
+            <div class="footer-text">made with 💖 by tory</div>
+        </div>
+    </div>
+
+    <div id="thankyou-card-wrapper">
+        <div class="card">
+            <div id="inner-decorations-ty">
+                <div class="decor" style="top:5%; left:10%;">✨</div>
+                <div class="decor" style="top:20%; right:5%;">🎀</div>
+                <div class="decor" style="bottom:15%; left:5%;">🌸</div>
+                <div class="decor" style="bottom:5%; right:10%;">💖</div>
+            </div>
+
+            <h1>Yeay! Makasih yaa Mell 💖</h1>
+            
+            <div class="pesan-tory">
+                <p>hah akhirnya kelar juga masalah yang aku buat ini. disini aku ga berharap balasan apapun dari kamu mel, aku cuma mau ngomong apa yang ada di pikiranku selama ini.</p>
+                <p>mungkin aneh ya kalo aku ngomong gini, btw masii inget gaa kamu pernaa ngomong gini? <br>
+                <span class="quote-memori">"kan kamu bukan siapa siapaku 😭"</span> <br>
+                wkwk, gilaa si inget bgt aku.</p>
+                <p>jujur itu yg bikin aku gabisa lupain kamu sampe sekarang mell haha, eh mungkin udah dulu ya makin ngelanturr aja nih, biasa lah jam malam pas bikin ini.</p>
+                <p>oiya kalo mau lanjut klik aja tombol di bawah ini, tapi jangan gelii yaa sama isi selanjutnya wkwk</p>
+            </div>
+
+            <div class="btn-container" style="min-height: auto; margin-top: 10px;">
+                <button id="btnLanjut" type="button" onclick="lanjutKeVideo()">jangan nyesel kalo lanjut</button>
             </div>
             
             <div class="footer-text">made with 💖 by Tory</div>
@@ -51,11 +65,11 @@
     </div>
 
     <div id="dramatic-scene">
-       <div class="video-wrapper-landscape">
-    <video id="us-video" muted playsinline preload="auto" loop>
-        <source src="kita_berdua.mp4" type="video/mp4">
-    </video>
-</div>
+        <div class="video-wrapper-landscape">
+            <video id="us-video" muted playsinline preload="auto" loop>
+                <source src="kita_berdua.mp4" type="video/mp4">
+            </video>
+        </div>
 
         <div id="dramatic-text-container">
             <p id="type1" class="drama-text"></p>
@@ -63,9 +77,9 @@
             <p id="type3" class="drama-text neon-pink"></p> 
             <p id="type4" class="drama-text"></p>
             
-            <div id="final-footer" style="display: none; margin-top: 30px;">
-                <p class="drama-text" style="font-size: 11px; opacity: 0.6;">don't forget to smile today! 🌸</p>
-                <p class="drama-text" style="font-weight:bold;">[makasii mell mau nunggu sampe selesai]</p>
+            <div id="final-footer">
+                <p class="drama-text" style="font-size: 11px; opacity: 0.6;">/aɪ lʌv juː/</p>
+                <p class="drama-text" style="font-weight:bold;">[makasii mell udah mau nunggu sampe selesai wkwk]</p>
             </div>
         </div>
     </div>
@@ -74,14 +88,9 @@
     <audio id="voiceAI" preload="auto"><source src="voice.mp3" type="audio/mpeg"></audio>
 
     <div id="replay-screen">
-        <button onclick="window.location.reload()" class="btn-replay">🔄 mau di ulangin ga?</button>
+        <button onclick="window.location.reload()" class="btn-replay">🔄ulangi lagi?</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
