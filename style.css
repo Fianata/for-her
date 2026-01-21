@@ -90,7 +90,7 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 
 .pesan-tory p {
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.61;
     margin-bottom: 12px;
     color: #444;
 }
@@ -106,3 +106,4 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
     color: var(--pink-deep);
     margin: 5px 0;
 }
+
