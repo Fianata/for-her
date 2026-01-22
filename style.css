@@ -101,10 +101,6 @@ button { width: 220px; padding: 15px; border-radius: 50px; border: none; font-we
     border-radius: 20px; /* Sudut melengkung (Balik ke asal) */
     overflow: hidden; 
     
-    /* Cinematic Bars */
-    border-top: 35px solid #000;
-    border-bottom: 35px solid #000;
-    
     box-shadow: 0 10px 50px rgba(255, 133, 162, 0.3); 
     
     opacity: 0; transform: scale(0.95); transition: opacity 2.5s ease-in-out; 
@@ -168,3 +164,4 @@ button { width: 220px; padding: 15px; border-radius: 50px; border: none; font-we
     .drama-text { font-size: 13.5px; }
     .footer-mahal { font-size: 8px; letter-spacing: 3px; }
 }
+
