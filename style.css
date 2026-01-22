@@ -70,7 +70,7 @@ body {
 .dc-1::after { content: '🌻'; position: absolute; bottom: -5px; right: -5px; font-size: 1.5rem; }
 .dc-2 { bottom: 20px; right: -15px; width: 100px; height: 100px; transform: rotate(15deg); animation-delay: 1s; }
 .dc-2::after { content: '🎀'; position: absolute; top: -5px; left: -5px; font-size: 1.5rem; }
-.dc-3 { top: 10px; right: -20px; width: 90px; height: 90px; transform: rotate(8deg); animation-delay: 0.5s; }
+.dc-3 { top: -30px; right: -30px; width: 90px; height: 90px; transform: rotate(8deg); animation-delay: 0.5s; }
 .dc-4 { bottom: -15px; left: -15px; transform: rotate(-12deg); animation-delay: 1.5s; }
 
 @keyframes floatingSticker { 0% { transform: translateY(0) rotate(-5deg); } 100% { transform: translateY(-12px) rotate(5deg); } }
@@ -120,4 +120,5 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 }
 .pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
 .quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
+
 
