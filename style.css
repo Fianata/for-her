@@ -13,7 +13,7 @@ body {
     min-height: 100vh; width: 100vw; overflow: hidden; padding: 20px;
 }
 
-/* --- WRAPPER KARTU UTAMA --- */
+/* --- WRAPPER KARTU UTAMA -- */
 #content-wrapper { transition: opacity 0.8s ease; width: 100%; display: flex; justify-content: center; }
 
 /* --- WRAPPER KARTU TERIMA KASIH (SISIPAN POSITION FIXED) --- */
@@ -120,3 +120,4 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 }
 .pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
 .quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
+
