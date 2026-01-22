@@ -1,7 +1,6 @@
 let audioCtx;
 let voiceSource;
 let audioGain;
-
 /**
  * 1. LOGIKA TOMBOL KABUR
  */
@@ -168,3 +167,4 @@ async function lanjutKeVideo() {
         }
     };
 }
+
