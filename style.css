@@ -16,19 +16,24 @@ body {
 /* --- WRAPPER KARTU UTAMA --- */
 #content-wrapper { transition: opacity 0.8s ease; width: 100%; display: flex; justify-content: center; }
 
-/* --- WRAPPER KARTU TERIMA KASIH (BARU) --- */
+/* --- WRAPPER KARTU TERIMA KASIH (SISIPAN POSITION FIXED) --- */
 #thankyou-card-wrapper {
     transition: opacity 0.8s ease;
     width: 100%;
-    display: none; /* Awalnya sembunyi */
+    height: 100%;
+    position: fixed; /* Sisipan: Biar nindih scene 1 */
+    top: 0; left: 0;
+    display: none; 
     opacity: 0;
     justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 /* Kelas untuk memunculkan kartu terima kasih */
 #thankyou-card-wrapper.show {
-    display: flex;
-    opacity: 1;
+    display: flex !important;
+    opacity: 1 !important;
 }
 
 /* --- STYLE KARTU (Dipakai oleh kedua kartu) --- */
@@ -37,9 +42,10 @@ body {
     box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
     text-align: center; width: 100%; max-width: 380px;
     border: 3px solid var(--pink-soft); 
-    overflow: visible; 
+    overflow: visible; /* Penting: Biar stiker foto bisa nongol keluar garis */
     min-height: 540px;
     z-index: 5;
+    display: flex; flex-direction: column; justify-content: center;
 }
 
 /* --- DEKORASI --- */
@@ -48,6 +54,26 @@ body {
 .decor:nth-child(3n) { animation-duration: 6s; animation-delay: 1s; font-size: 30px; }
 .decor:nth-child(4n) { animation-duration: 5.5s; animation-delay: 1.5s; opacity: 0.2; }
 @keyframes floating { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
+
+/* --- SISIPAN: DEKORASI STIKER FOTO 4 BIJI --- */
+.decor-sticker {
+    position: absolute;
+    z-index: 10;
+    width: 85px; height: 85px;
+    background: #fff; padding: 4px; border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    animation: floatingSticker 4s ease-in-out infinite alternate;
+}
+.decor-sticker img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid #ffb6c1; }
+
+.dc-1 { top: -15px; left: -10px; transform: rotate(-10deg); }
+.dc-1::after { content: '🌻'; position: absolute; bottom: -5px; right: -5px; font-size: 1.5rem; }
+.dc-2 { bottom: 20px; right: -15px; width: 100px; height: 100px; transform: rotate(15deg); animation-delay: 1s; }
+.dc-2::after { content: '🎀'; position: absolute; top: -5px; left: -5px; font-size: 1.5rem; }
+.dc-3 { top: 10px; right: -20px; width: 90px; height: 90px; transform: rotate(8deg); animation-delay: 0.5s; }
+.dc-4 { bottom: -15px; left: -15px; transform: rotate(-12deg); animation-delay: 1.5s; }
+
+@keyframes floatingSticker { 0% { transform: translateY(0) rotate(-5deg); } 100% { transform: translateY(-12px) rotate(5deg); } }
 
 /* --- KONTEN KARTU LAINNYA --- */
 .img-container { width: 130px; height: 175px; margin: 0 auto 1.5rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
@@ -63,8 +89,13 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 #btnIya, #btnLanjut { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); z-index: 102; }
 #btnEngga { background: #2c2c2c; color: #fff; font-size: 12px; z-index: 101; }
 
-/* --- SCENE VIDEO --- */
-#dramatic-scene { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at center, #1a050a 0%, #000 100%); z-index: 9999; display: none; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; overflow-y: auto; }
+/* --- SCENE VIDEO (SISIPAN TRANSITION UNTUK BLACKOUT) --- */
+#dramatic-scene { 
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+    background: black; 
+    z-index: 9999; display: none; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; 
+    opacity: 1; transition: opacity 3s ease; /* Sisipan: transition untuk fade out */
+}
 .video-wrapper-landscape { position: relative; width: 95%; max-width: 500px; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; box-shadow: 0 0 30px rgba(255, 133, 162, 0.7); opacity: 0; transform: scale(0.95); transition: all 2.5s ease-in-out; margin-top: 10vh; margin-bottom: 35px; flex-shrink: 0; }
 .video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); }
 #us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); }
@@ -81,31 +112,11 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 
 /* STYLE KHUSUS PESAN TORY */
 .pesan-tory {
-    text-align: left; /* Biar lebih rapi dibaca kayak surat */
+    text-align: left;
     margin: 20px 0;
     max-height: 300px;
-    overflow-y: auto; /* Jaga-jaga kalo di HP layar kecil, teksnya bisa di-scroll */
+    overflow-y: auto;
     padding: 0 10px;
 }
-
-.pesan-tory p {
-    font-size: 13px;
-    line-height: 1.61;
-    margin-bottom: 12px;
-    color: #444;
-}
-
-/* Bagian quote memori biar lebih menonjol */
-.quote-memori {
-    display: inline-block;
-    background: #fff0f5;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-style: italic;
-    font-weight: bold;
-    color: var(--pink-deep);
-    margin: 5px 0;
-}
-
-
-
+.pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
+.quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
