@@ -101,7 +101,7 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 #us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); }
 #dramatic-text-container { position: relative; width: 90%; max-width: 450px; text-align: center; z-index: 100; pointer-events: none; }
 .drama-text { color: white; font-size: clamp(14px, 4.5vw, 16px); margin-bottom: 0.7rem; text-shadow: 0 2px 10px rgba(0,0,0,1); line-height: 1.6; }
-.neon-pink { color: #ffffff !important; font-weight: bold; text-shadow: 0 0 5px #fff, 0 0 15px var(--pink-soft), 0 0 30px var(--pink-deep), 0 0 50px var(--pink-deep); }
+.neon-pink { color: #ffffff !important; font-weight: bold; text-shadow: 0 0 7px #fff, 0 0 30px var(--pink-soft), 0 0 40px var(--pink-deep), 0 0 75px var(--pink-deep); }
 
 /* --- FOOTER & REPLAY --- */
 #final-footer { display: none; margin-top: 35px; opacity: 0; transition: opacity 2s ease; padding-bottom: 60px; }
@@ -120,5 +120,6 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 }
 .pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
 .quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
+
 
 
