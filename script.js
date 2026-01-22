@@ -151,7 +151,7 @@ async function lanjutKeVideo() {
         // Mulai fade out di detik 250 (4:10)
         if (music.currentTime >= 246.2 && !hasFadedOut) {
             hasFadedOut = true;
-            
+            music.ontimeupdate = null;
             // Visual memudar ke hitam
             scene.style.opacity = '0'; 
 
@@ -167,4 +167,5 @@ async function lanjutKeVideo() {
         }
     };
 }
+
 
