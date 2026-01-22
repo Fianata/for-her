@@ -48,7 +48,7 @@ body {
     display: flex; flex-direction: column; justify-content: center;
 }
 
-/* --- DEKORASI --- */
+/* --- DEKORASII --- */
 .decor { position: absolute; font-size: 25px; opacity: 0.3; animation: floating 5s ease-in-out infinite; pointer-events: none !important; z-index: 1; }
 .decor:nth-child(odd) { animation-duration: 4s; animation-delay: 0.5s; }
 .decor:nth-child(3n) { animation-duration: 6s; animation-delay: 1s; font-size: 30px; }
@@ -120,6 +120,7 @@ button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-we
 }
 .pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
 .quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
+
 
 
 
