@@ -33,20 +33,20 @@ async function typeWriter(id, text, speed) {
 }
 
 /**
- * 3. AUDIO ENGINE (FADE IN & FADE OUT)
+ * 3. AUDIO ENGINE (SMOOTH FADE)
  */
 function fadeOut(audio, callback) {
     let vol = audio.volume;
     let interval = setInterval(() => {
         if (vol > 0.02) {
-            vol -= 0.02;
+            vol -= 0.01; // Pengurangan sangat kecil biar halus banget
             audio.volume = Math.max(0, vol);
         } else {
             audio.pause();
             clearInterval(interval);
             if (callback) callback();
         }
-    }, 150); 
+    }, 200); // Interval 200ms biar cinematic
 }
 
 function fadeIn(audio, targetVol) {
@@ -68,10 +68,10 @@ function fadeIn(audio, targetVol) {
 async function terimaMaaf() {
     const ambient = document.getElementById('ambientMusic');
     
-    // Konfigurasi Piano Amiin Paling Serius (0.9x speed, start at 33s)
+    // Konfigurasi Piano (Start 33s, Speed 0.9x)
     ambient.currentTime = 33;
     ambient.playbackRate = 0.9;
-    ambient.volume = 0.20;
+    ambient.volume = 0.25;
     ambient.play().catch(() => { console.log("Autoplay blocked"); });
 
     document.getElementById('content-wrapper').style.opacity = '0';
@@ -88,7 +88,7 @@ async function terimaMaaf() {
 }
 
 /**
- * 5. TAHAP 2: MASUK KE VIDEO SINEMATIK (FADE EFFECTS)
+ * 5. TAHAP 2: MASUK KE VIDEO SINEMATIK (PERFECT EDITION)
  */
 async function lanjutKeVideo() {
     const ambient = document.getElementById('ambientMusic'); 
@@ -99,7 +99,7 @@ async function lanjutKeVideo() {
     const videoEl = document.getElementById('us-video');
     const thankyouWrapper = document.getElementById('thankyou-card-wrapper');
 
-    // Fade Out Piano pas tombol diklik
+    // Fade out piano saat tombol diklik
     fadeOut(ambient);
 
     if (audioCtx && audioCtx.state === 'suspended') { await audioCtx.resume(); }
@@ -110,26 +110,27 @@ async function lanjutKeVideo() {
         scene.style.display = 'flex'; 
     }, 800);
 
-    // Jeda hening sebelum video mulai
-    await new Promise(r => setTimeout(r, 2000)); 
+    // Jeda hening biar dramatis
+    await new Promise(r => setTimeout(r, 2500)); 
 
     if (!voiceSource) {
         audioGain = audioCtx.createGain();
-        audioGain.gain.value = 4.0;
+        audioGain.gain.value = 4.0; // Boost suara George
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain);
         audioGain.connect(audioCtx.destination);
     }
 
-    // -- MULAI FIX YOU DENGAN FADE IN --
-    music.currentTime = 210; 
+    // -- MULAI LAGU PERFECT (Detik 148: "I have faith in what I see") --
+    music.currentTime = 204; 
     music.play();
-    fadeIn(music, 0.5); // Naik perlahan ke volume 0.5
+    fadeIn(music, 0.5); 
 
     await new Promise(r => setTimeout(r, 2000)); 
     
+    // Video Playback
     videoEl.muted = true;
-    videoEl.playbackRate = 0.75;
+    videoEl.playbackRate = 0.65;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
@@ -145,23 +146,25 @@ async function lanjutKeVideo() {
     document.getElementById('final-footer').style.display = 'block';
     setTimeout(() => { document.getElementById('final-footer').style.opacity = '1'; }, 50);
     
-    // -- LOGIKA FADE OUT DI AKHIR VIDEO --
+    // -- LOGIKA TRANSISI AKHIR (VISUAL BLACKOUT & AUDIO FADE OUT) --
     let hasFadedOut = false;
     music.ontimeupdate = () => {
-        // Mulai fade out 3 detik sebelum scene berakhir (di detik 272)
-        if (music.currentTime >= 275 && !hasFadedOut) {
+        // Mulai fade out di detik 250 (4:10)
+        if (music.currentTime >= 246.2 && !hasFadedOut) {
             hasFadedOut = true;
+            
+            // Visual memudar ke hitam
+            scene.style.opacity = '0'; 
+
             fadeOut(music, () => {
-                scene.style.display = 'none';
-                document.getElementById('replay-screen').style.display = 'flex';
-                setTimeout(() => { document.getElementById('replay-screen').style.opacity = '1'; }, 100);
+                setTimeout(() => {
+                    scene.style.display = 'none';
+                    document.getElementById('replay-screen').style.display = 'flex';
+                    setTimeout(() => { 
+                        document.getElementById('replay-screen').style.opacity = '1'; 
+                    }, 150);
+                }, 1100);
             });
         }
     };
 }
-
-
-
-
-
-
