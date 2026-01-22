@@ -70,7 +70,7 @@ async function terimaMaaf() {
     // Konfigurasi Piano (Start 33s, Speed 0.9x)
     ambient.currentTime = 100;
     ambient.playbackRate = 0.9;
-    ambient.volume = 0.25;
+    ambient.volume = 0.1;
     ambient.play().catch(() => { console.log("Autoplay blocked"); });
 
     document.getElementById('content-wrapper').style.opacity = '0';
@@ -167,6 +167,7 @@ async function lanjutKeVideo() {
         }
     };
 }
+
 
 
 
