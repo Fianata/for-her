@@ -13,114 +13,158 @@ body {
     min-height: 100vh; width: 100vw; overflow: hidden; padding: 20px;
 }
 
-/* --- WRAPPER KARTU UTAMA -- */
+/* --- WRAPPERS --- */
 #content-wrapper { transition: opacity 0.8s ease; width: 100%; display: flex; justify-content: center; }
 
-/* --- WRAPPER KARTU TERIMA KASIH (SISIPAN POSITION FIXED) --- */
 #thankyou-card-wrapper {
     transition: opacity 0.8s ease;
-    width: 100%;
-    height: 100%;
-    position: fixed; /* Sisipan: Biar nindih scene 1 */
-    top: 0; left: 0;
-    display: none; 
-    opacity: 0;
-    justify-content: center;
-    align-items: center;
+    width: 100%; height: 100%;
+    position: fixed; top: 0; left: 0;
+    display: none; opacity: 0;
+    justify-content: center; align-items: center;
     z-index: 1000;
 }
+#thankyou-card-wrapper.show { display: flex !important; opacity: 1 !important; }
 
-/* Kelas untuk memunculkan kartu terima kasih */
-#thankyou-card-wrapper.show {
-    display: flex !important;
-    opacity: 1 !important;
-}
-
-/* --- STYLE KARTU (Dipakai oleh kedua kartu) --- */
+/* --- KARTU GLASSMORPHISM --- */
 .card {
-    position: relative; background: white; padding: 40px 30px; border-radius: 35px;
+    position: relative; 
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px); 
+    padding: 40px 25px; border-radius: 35px;
     box-shadow: 0 15px 45px rgba(255, 133, 162, 0.2);
     text-align: center; width: 100%; max-width: 380px;
-    border: 3px solid var(--pink-soft); 
-    overflow: visible; /* Penting: Biar stiker foto bisa nongol keluar garis */
+    border: 2px solid var(--pink-soft); 
+    overflow: visible; 
     min-height: 540px;
     z-index: 5;
     display: flex; flex-direction: column; justify-content: center;
 }
 
-/* --- DEKORASII --- */
-.decor { position: absolute; font-size: 25px; opacity: 0.3; animation: floating 5s ease-in-out infinite; pointer-events: none !important; z-index: 1; }
-.decor:nth-child(odd) { animation-duration: 4s; animation-delay: 0.5s; }
-.decor:nth-child(3n) { animation-duration: 6s; animation-delay: 1s; font-size: 30px; }
-.decor:nth-child(4n) { animation-duration: 5.5s; animation-delay: 1.5s; opacity: 0.2; }
-@keyframes floating { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
+/* --- DEKORASI --- */
+.decor { position: absolute; font-size: 25px; opacity: 0.6; animation: floating 5s ease-in-out infinite; pointer-events: none; z-index: 10; }
+@keyframes floating { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
 
-/* --- SISIPAN: DEKORASI STIKER FOTO 4 BIJI --- */
 .decor-sticker {
-    position: absolute;
-    z-index: 10;
+    position: absolute; z-index: 15;
     width: 85px; height: 85px;
     background: #fff; padding: 4px; border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     animation: floatingSticker 4s ease-in-out infinite alternate;
 }
 .decor-sticker img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid #ffb6c1; }
 
 .dc-1 { top: -15px; left: -10px; transform: rotate(-10deg); }
-.dc-1::after { content: '🌻'; position: absolute; bottom: -5px; right: -5px; font-size: 1.5rem; }
-.dc-2 { bottom: 20px; right: -15px; width: 100px; height: 100px; transform: rotate(15deg); animation-delay: 1s; }
-.dc-2::after { content: '🎀'; position: absolute; top: -5px; left: -5px; font-size: 1.5rem; }
-.dc-3 { top: -30px; right: -30px; width: 90px; height: 90px; transform: rotate(8deg); animation-delay: 0.5s; }
-.dc-4 { bottom: -15px; left: -15px; transform: rotate(-12deg); animation-delay: 1.5s; }
-
+.dc-2 { bottom: 10px; right: -15px; width: 100px; height: 100px; transform: rotate(15deg); }
+.dc-3 { top: -30px; right: -25px; width: 90px; height: 90px; }
+.dc-4 { bottom: -20px; left: -15px; }
 @keyframes floatingSticker { 0% { transform: translateY(0) rotate(-5deg); } 100% { transform: translateY(-12px) rotate(5deg); } }
 
-/* --- KONTEN KARTU LAINNYA --- */
-.img-container { width: 130px; height: 175px; margin: 0 auto 1.5rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
+/* --- ISI KARTU --- */
+.img-container { width: 130px; height: 175px; margin: 0 auto 1rem; border-radius: 65px; overflow: hidden; border: 4px solid var(--pink-soft); position: relative; z-index: 2; }
 .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
-h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 28px; margin-bottom: 10px; }
-p { font-size: 14px; color: #555; line-height: 1.5; margin-bottom: 20px; }
-.pro-tip { font-size: 11px !important; color: #999; font-style: italic; margin-bottom: 25px; }
+h1 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 26px; margin-bottom: 10px; }
+p { font-size: 13.5px; color: #555; line-height: 1.5; margin-bottom: 15px; }
+
+.pesan-tory { text-align: left; margin: 15px 0; max-height: 260px; overflow-y: auto; padding: 0 10px; }
+.pesan-tory p { font-size: 13px; line-height: 1.6; margin-bottom: 12px; color: #444; }
+.quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); }
+.pro-tip { font-size: 11px; color: #999; font-style: italic; margin-bottom: 15px; }
+.footer-text { font-size: 10px; color: #999; margin-top: 15px; text-transform: lowercase; letter-spacing: 1px; }
 
 /* --- TOMBOL --- */
-.btn-container { display: flex; flex-direction: column; align-items: center; gap: 30px; min-height: 180px; position: relative; z-index: 100; }
-button { width: 220px; padding: 16px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Quicksand', sans-serif; }
-#btnIya, #btnLanjut { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3); z-index: 102; }
-#btnEngga { background: #2c2c2c; color: #fff; font-size: 12px; z-index: 101; }
+.btn-container { display: flex; flex-direction: column; align-items: center; gap: 20px; min-height: 150px; z-index: 100; }
+button { width: 220px; padding: 15px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; }
+#btnIya, #btnLanjut { background: linear-gradient(45deg, var(--pink-soft), var(--pink-deep)); color: white; box-shadow: 0 5px 15px rgba(233, 30, 99, 0.2); }
+#btnEngga { background: #2c2c2c; color: #fff; font-size: 12px; }
 
-/* --- SCENE VIDEO (SISIPAN TRANSITION UNTUK BLACKOUT) --- */
+/* --- SCENE VIDEO (CINEMATIC FLOATING BOX) --- */
 #dramatic-scene { 
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-    background: black; 
+    background: radial-gradient(circle at center, #150508 0%, #000 90%); 
     z-index: 9999; display: none; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px; 
-    opacity: 1; transition: opacity 3s ease; /* Sisipan: transition untuk fade out */
+    opacity: 1; transition: opacity 3s ease; overflow: hidden;
 }
-.video-wrapper-landscape { position: relative; width: 95%; max-width: 500px; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; box-shadow: 0 0 30px rgba(255, 133, 162, 0.7); opacity: 0; transform: scale(0.95); transition: all 2.5s ease-in-out; margin-top: 10vh; margin-bottom: 35px; flex-shrink: 0; }
-.video-wrapper-landscape.show-video { opacity: 1; transform: scale(1); }
-#us-video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); }
-#dramatic-text-container { position: relative; width: 90%; max-width: 450px; text-align: center; z-index: 100; pointer-events: none; }
-.drama-text { color: white; font-size: clamp(14px, 4.5vw, 16px); margin-bottom: 0.7rem; text-shadow: 0 2px 10px rgba(0,0,0,1); line-height: 1.6; }
-.neon-pink { color: #ffffff !important; font-weight: bold; text-shadow: 0 0 7px #fff, 0 0 30px var(--pink-soft), 0 0 40px var(--pink-deep), 0 0 75px var(--pink-deep); }
 
-/* --- FOOTER & REPLAY --- */
-#final-footer { display: none; margin-top: 35px; opacity: 0; transition: opacity 2s ease; padding-bottom: 60px; }
+/* Background Bokeh */
+#dramatic-scene::before {
+    content: ''; position: absolute; width: 150%; height: 150%;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255, 133, 162, 0.05) 0%, transparent 25%), radial-gradient(circle at 80% 70%, rgba(233, 30, 99, 0.05) 0%, transparent 25%);
+    animation: moveBokeh 20s linear infinite; z-index: 1;
+}
+@keyframes moveBokeh { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* VIDEO WRAPPER (LETTERBOX & ZOOM) */
+.video-wrapper-landscape { 
+    position: relative; width: 95%; max-width: 520px; aspect-ratio: 16 / 9; 
+    border-radius: 20px; /* Sudut melengkung (Balik ke asal) */
+    overflow: hidden; 
+    
+    /* Cinematic Bars */
+    border-top: 35px solid #000;
+    border-bottom: 35px solid #000;
+    
+    box-shadow: 0 10px 50px rgba(255, 133, 162, 0.3); 
+    
+    opacity: 0; transform: scale(0.95); transition: opacity 2.5s ease-in-out; 
+    margin-top: 8vh; margin-bottom: 30px; z-index: 10;
+}
+
+.video-wrapper-landscape.show-video { 
+    opacity: 1; 
+    animation: cinematicZoom 20s ease-out forwards; 
+}
+
+@keyframes cinematicZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+#us-video { 
+    width: 100%; height: 100%; object-fit: cover; 
+    filter: sepia(22%) saturate(115%) contrast(110%) brightness(40%); 
+    transform: scale(1.01); 
+}
+
+/* Overlay Vignette */
+.video-wrapper-landscape::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none; z-index: 5;
+}
+
+/* --- TEKS DRAMATIS & FOOTER --- */
+#dramatic-text-container { position: relative; width: 90%; max-width: 450px; text-align: center; z-index: 100; }
+
+.drama-text { 
+    color: white; font-size: clamp(13px, 4vw, 15px); margin-bottom: 0.8rem; 
+    text-shadow: 0 2px 10px rgba(0,0,0,1); line-height: 1.6;
+    opacity: 0; transform: translateY(15px); transition: all 1.5s ease-out;
+}
+.text-reveal { opacity: 1 !important; transform: translateY(0) !important; }
+
+.neon-pink { 
+    color: #fff !important; font-weight: bold; 
+    text-shadow: 0 0 10px #fff, 0 0 25px var(--pink-soft), 0 0 50px var(--pink-deep), 0 0 120px var(--pink-deep);
+}
+
+#final-footer { display: none; margin-top: 45px; opacity: 0; transition: opacity 2s ease; }
+.footer-mahal { 
+    font-size: 9px; 
+    letter-spacing: 4px; /* Mahal Style */
+    color: rgba(255, 255, 255, 0.5); 
+    font-weight: 300; 
+    text-transform: uppercase; 
+    margin-top: 10px;
+}
+
 #replay-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 2s ease; }
-.btn-replay { background: transparent; color: white; border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; }
-.footer-text { font-size: 11px; color: #bbb; margin-top: 20px; }
+.btn-replay { background: transparent; color: white; border: 2px solid var(--pink-soft); padding: 15px 30px; border-radius: 50px; cursor: pointer; border: 2px solid #ff85a2; font-weight: bold; }
 
-
-/* STYLE KHUSUS PESAN TORY */
-.pesan-tory {
-    text-align: left;
-    margin: 20px 0;
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 0 10px;
+@media (max-width: 600px) {
+    .card { width: 95%; padding: 30px 20px; min-height: 520px; }
+    .decor-sticker { width: 70px; height: 70px; }
+    .drama-text { font-size: 13.5px; }
+    .footer-mahal { font-size: 8px; letter-spacing: 3px; }
 }
-.pesan-tory p { font-size: 13px; line-height: 1.61; margin-bottom: 12px; color: #444; }
-.quote-memori { display: inline-block; background: #fff0f5; padding: 5px 10px; border-radius: 10px; font-style: italic; font-weight: bold; color: var(--pink-deep); margin: 5px 0; }
-
-
-
-
