@@ -161,11 +161,12 @@ async function lanjutKeVideo() {
                     document.getElementById('replay-screen').style.display = 'flex';
                     setTimeout(() => { 
                         document.getElementById('replay-screen').style.opacity = '1'; 
-                    }, 150);
-                }, 1100);
+                    }, 200);
+                }, 600);
             });
         }
     };
 }
+
 
 
