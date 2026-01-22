@@ -1,15 +1,14 @@
 let audioCtx;
 let voiceSource;
 let audioGain;
-/**
- * 1. LOGIKA TOMBOL KABUR
- */
+
 function pindahTombol(e) {
     if (e) { e.stopPropagation(); e.preventDefault(); }
     const btn = document.getElementById('btnEngga');
     const daftarPesan = ["nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋", "pencet iyaa aja gasi!? 😡", "gabisa mel sori! 🤪"];
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     btn.style.position = 'fixed';
+    
     const padding = 25; 
     const maxX = window.innerWidth - btn.offsetWidth - padding;
     const maxY = window.innerHeight - btn.offsetHeight - padding;
@@ -18,34 +17,30 @@ function pindahTombol(e) {
     return false;
 }
 
-/**
- * 2. TYPEWRITER ENGINE
- */
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
     if (!el) return;
     el.innerHTML = ""; 
+    el.classList.add('text-reveal'); 
     for (let i = 0; i < text.length; i++) {
         el.innerHTML += text.charAt(i);
         await new Promise(res => setTimeout(res, speed));
     }
 }
 
-/**
- * 3. AUDIO ENGINE (SMOOTH FADE)
- */
 function fadeOut(audio, callback) {
     let vol = audio.volume;
     let interval = setInterval(() => {
-        if (vol > 0.02) {
-            vol -= 0.01; // Pengurangan sangat kecil biar halus banget
+        if (vol > 0.05) {
+            vol -= 0.05; 
             audio.volume = Math.max(0, vol);
         } else {
+            audio.volume = 0;
             audio.pause();
             clearInterval(interval);
             if (callback) callback();
         }
-    }, 200); // Interval 200ms biar cinematic
+    }, 100); 
 }
 
 function fadeIn(audio, targetVol) {
@@ -61,16 +56,11 @@ function fadeIn(audio, targetVol) {
     }, 150);
 }
 
-/**
- * 4. TAHAP 1: PINDAH KE KARTU PESAN & KONFIGURASI PIANO
- */
 async function terimaMaaf() {
     const ambient = document.getElementById('ambientMusic');
-    
-    // Konfigurasi Piano (Start 33s, Speed 0.9x)
     ambient.currentTime = 100;
     ambient.playbackRate = 0.9;
-    ambient.volume = 0.1;
+    ambient.volume = 0.25;
     ambient.play().catch(() => { console.log("Autoplay blocked"); });
 
     document.getElementById('content-wrapper').style.opacity = '0';
@@ -81,14 +71,9 @@ async function terimaMaaf() {
         setTimeout(() => { thankyouWrapper.classList.add('show'); }, 50);
     }, 800);
 
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
+    if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 }
 
-/**
- * 5. TAHAP 2: MASUK KE VIDEO SINEMATIK (PERFECT EDITION)
- */
 async function lanjutKeVideo() {
     const ambient = document.getElementById('ambientMusic'); 
     const music = document.getElementById('bgMusic');      
@@ -98,7 +83,6 @@ async function lanjutKeVideo() {
     const videoEl = document.getElementById('us-video');
     const thankyouWrapper = document.getElementById('thankyou-card-wrapper');
 
-    // Fade out piano saat tombol diklik
     fadeOut(ambient);
 
     if (audioCtx && audioCtx.state === 'suspended') { await audioCtx.resume(); }
@@ -109,25 +93,25 @@ async function lanjutKeVideo() {
         scene.style.display = 'flex'; 
     }, 800);
 
-    // Jeda hening biar dramatis
     await new Promise(r => setTimeout(r, 2500)); 
+
+    ambient.pause();
+    ambient.volume = 0;
 
     if (!voiceSource) {
         audioGain = audioCtx.createGain();
-        audioGain.gain.value = 4.0; // Boost suara George
+        audioGain.gain.value = 4.0; 
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain);
         audioGain.connect(audioCtx.destination);
     }
 
-    // -- MULAI LAGU PERFECT (Detik 148: "I have faith in what I see") --
     music.currentTime = 204; 
     music.play();
     fadeIn(music, 0.5); 
 
     await new Promise(r => setTimeout(r, 2000)); 
     
-    // Video Playback
     videoEl.muted = true;
     videoEl.playbackRate = 0.65;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
@@ -136,39 +120,33 @@ async function lanjutKeVideo() {
     const typoSpeed = 65; 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
+    
     await typeWriter("type2", "just like the lyrics in your photo, 'lights will guide you home'...", typoSpeed);
     await new Promise(r => setTimeout(r, 800));
+    
     await typeWriter("type3", "i hope i can be one of those lights that always leads you back to where you feel safe and comfortable.", typoSpeed);
     await new Promise(r => setTimeout(r, 1200));
+    
     await typeWriter("type4", "this is truly coming from the bottom of my heart. :)", typoSpeed);
 
-    document.getElementById('final-footer').style.display = 'block';
-    setTimeout(() => { document.getElementById('final-footer').style.opacity = '1'; }, 50);
+    const footer = document.getElementById('final-footer');
+    footer.style.display = 'block';
+    setTimeout(() => { footer.style.opacity = '1'; }, 100);
     
-    // -- LOGIKA TRANSISI AKHIR (VISUAL BLACKOUT & AUDIO FADE OUT) --
     let hasFadedOut = false;
     music.ontimeupdate = () => {
-        // Mulai fade out di detik 250 (4:10)
-        if (music.currentTime >= 246.2 && !hasFadedOut) {
+        if (music.currentTime >= 246 && !hasFadedOut) {
             hasFadedOut = true;
             music.ontimeupdate = null;
-            // Visual memudar ke hitam
             scene.style.opacity = '0'; 
 
             fadeOut(music, () => {
                 setTimeout(() => {
                     scene.style.display = 'none';
                     document.getElementById('replay-screen').style.display = 'flex';
-                    setTimeout(() => { 
-                        document.getElementById('replay-screen').style.opacity = '1'; 
-                    }, 150);
-                }, 1000);
+                    setTimeout(() => { document.getElementById('replay-screen').style.opacity = '1'; }, 150);
+                }, 1100);
             });
         }
     };
 }
-
-
-
-
-
