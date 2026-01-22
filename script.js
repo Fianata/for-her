@@ -69,7 +69,7 @@ async function terimaMaaf() {
     const ambient = document.getElementById('ambientMusic');
     
     // Konfigurasi Piano (Start 33s, Speed 0.9x)
-    ambient.currentTime = 33;
+    ambient.currentTime = 100;
     ambient.playbackRate = 0.9;
     ambient.volume = 0.25;
     ambient.play().catch(() => { console.log("Autoplay blocked"); });
