@@ -2,40 +2,26 @@ let audioCtx;
 let voiceSource;
 let audioGain;
 
-// --- 1. LOGIC TOMBOL LARI (VERSI KE-KURUNG DI KARTU) ---
+// --- 1. LOGIC TOMBOL LARI ---
 function pindahTombol(e) {
     if (e) { e.stopPropagation(); e.preventDefault(); }
     
     const btn = document.getElementById('btnEngga');
-    const card = document.getElementById('mainCard'); // Area kandang (Kartu)
+    const card = document.getElementById('mainCard'); 
     
     const daftarPesan = ["nt mell! 😜", "ngeyel! 🙄", "coba lagi! 😋", "pencet iyaa aja gasi!? 😡", "gabisa mel sori! 🤪"];
     
-    // Ganti Teks
     btn.innerText = daftarPesan[Math.floor(Math.random() * daftarPesan.length)];
     
-    // --- STEP PENTING: PINDAHIN TOMBOL KE DALAM CARD ---
-    // Biar koordinatnya dihitung berdasarkan kartu, bukan layar HP
-    if (btn.parentNode !== card) {
-        card.appendChild(btn);
-    }
+    if (btn.parentNode !== card) { card.appendChild(btn); }
     
-    // Ubah posisi jadi Absolute
     btn.style.position = 'absolute';
     btn.style.zIndex = '100'; 
     
-    // Hitung area aman (di dalam kartu)
-    const margin = 30; // Jarak aman dari pinggir biar ga mepet
-    const cardWidth = card.clientWidth;
-    const cardHeight = card.clientHeight;
-    const btnWidth = btn.offsetWidth;
-    const btnHeight = btn.offsetHeight;
+    const margin = 30;
+    const maxX = card.clientWidth - btn.offsetWidth - margin;
+    const maxY = card.clientHeight - btn.offsetHeight - margin;
     
-    // Batas Maksimal Gerak
-    const maxX = cardWidth - btnWidth - margin;
-    const maxY = cardHeight - btnHeight - margin;
-    
-    // Acak posisi (Math.random)
     const randomX = Math.floor(Math.random() * (maxX - margin)) + margin;
     const randomY = Math.floor(Math.random() * (maxY - margin)) + margin;
     
@@ -45,40 +31,56 @@ function pindahTombol(e) {
     return false;
 }
 
-// --- 2. LOGIC NGETIK BIASA (PER HURUF) ---
+// --- 2. LOGIC NGETIK ---
 async function typeWriter(id, text, speed) {
     const el = document.getElementById(id);
     if (!el) return;
-    el.innerHTML = ""; 
-    el.style.display = "block"; 
-    el.classList.add('text-reveal'); 
+    el.innerHTML = ""; el.style.display = "block"; el.classList.add('text-reveal'); 
     for (let i = 0; i < text.length; i++) {
         el.innerHTML += text.charAt(i);
         await new Promise(res => setTimeout(res, speed));
     }
 }
 
-// --- 3. AUDIO HELPERS ---
-function fadeOut(audio, callback) {
+// --- 3. AUDIO CONTROL (FADE IN / FADE OUT) ---
+function fadeOut(audio) {
+    // Cek dulu kalo audio ga ada/error
+    if (!audio || audio.paused) return;
+    
     let vol = audio.volume;
     let interval = setInterval(() => {
-        if (vol > 0.05) { vol -= 0.05; audio.volume = Math.max(0, vol); } 
-        else { audio.volume = 0; audio.pause(); clearInterval(interval); if (callback) callback(); }
-    }, 100); 
+        if (vol > 0.05) {
+            vol -= 0.05; // Kurangi volume pelan-pelan
+            audio.volume = vol;
+        } else {
+            // Kalo udah kecil banget, matiin total
+            audio.volume = 0;
+            audio.pause();
+            clearInterval(interval);
+        }
+    }, 100); // Jalan setiap 0.1 detik
 }
 
 function fadeIn(audio, targetVol) {
-    audio.volume = 0; let vol = 0;
+    audio.volume = 0;
+    let vol = 0;
     let interval = setInterval(() => {
-        if (vol < targetVol) { vol += 0.02; audio.volume = Math.min(targetVol, vol); } 
-        else { clearInterval(interval); }
+        if (vol < targetVol) {
+            vol += 0.02;
+            audio.volume = Math.min(targetVol, vol);
+        } else {
+            clearInterval(interval);
+        }
     }, 150);
 }
 
-// --- 4. SCENE 1 -> SCENE 2 (SURAT) ---
+// --- 4. SCENE 1 -> SCENE 2 ---
 async function terimaMaaf() {
     const ambient = document.getElementById('ambientMusic');
-    ambient.currentTime = 100; ambient.playbackRate = 0.9; ambient.volume = 0.25;
+    // Set volume awal piano
+    ambient.currentTime = 100; 
+    ambient.playbackRate = 0.9; 
+    ambient.volume = 0.25; 
     ambient.play().catch(() => {});
     
     document.getElementById('content-wrapper').style.opacity = '0';
@@ -91,7 +93,7 @@ async function terimaMaaf() {
     if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 }
 
-// --- 5. SCENE 2 -> SCENE 3 (VIDEO) -> ENDING ---
+// --- 5. SCENE 2 -> WAITING -> SCENE 3 (VIDEO) ---
 async function lanjutKeVideo() {
     const ambient = document.getElementById('ambientMusic'); 
     const music = document.getElementById('bgMusic');      
@@ -100,39 +102,59 @@ async function lanjutKeVideo() {
     const videoWrapper = document.querySelector('.video-wrapper-landscape');
     const videoEl = document.getElementById('us-video');
     const thankyouWrapper = document.getElementById('thankyou-card-wrapper');
+    const loading = document.getElementById('loading-overlay'); 
 
-    // Transisi Awal
+    // [POINT PENTING]: Fade Out Piano dimulai DISINI (Saat tombol diklik)
+    // Jadi pas masuk layar "waiting...", suaranya udah mengecil/ilang.
     fadeOut(ambient);
+
     if (audioCtx && audioCtx.state === 'suspended') { await audioCtx.resume(); }
 
+    // Ilangin Surat
     thankyouWrapper.classList.remove('show');
+    
+    // Munculin Loading "waiting..."
+    loading.style.display = 'flex';
+    setTimeout(() => { loading.style.opacity = '1'; }, 100);
+
     setTimeout(() => {
         thankyouWrapper.style.display = 'none';
-        scene.style.display = 'flex'; 
-        scene.style.opacity = '1';
     }, 800);
 
-    // Layar Hitam (Dramatic Pause 2.5s)
-    await new Promise(r => setTimeout(r, 2500)); 
-    ambient.pause(); ambient.volume = 0;
+    // Tahan di layar Waiting selama 3 detik (Suasana Hening)
+    await new Promise(r => setTimeout(r, 1500)); 
 
-    // Setup Voice Booster
+    // Matikan Loading, Masuk Scene Video
+    loading.style.opacity = '0';
+    setTimeout(() => { loading.style.display = 'none'; }, 1000);
+    
+    scene.style.display = 'flex'; 
+    setTimeout(() => { scene.style.opacity = '1'; }, 500);
+
+    // Pastikan piano bener-bener mati (Safety)
+    ambient.pause(); 
+    ambient.volume = 0;
+
+    // Setup Voice
     if (!voiceSource) {
         audioGain = audioCtx.createGain(); audioGain.gain.value = 4.0; 
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain); audioGain.connect(audioCtx.destination);
     }
 
-    // Play Musik (Menit 3:24)
-    music.currentTime = 204; music.play(); fadeIn(music, 0.5); 
+    // Play Musik Utama (Fade In)
+    music.currentTime = 204; 
+    music.play(); 
+    fadeIn(music, 0.5); 
+    
     await new Promise(r => setTimeout(r, 2000)); 
     
-    // Play Video & Voice
+    // Play Video
     videoEl.muted = true; videoEl.playbackRate = 0.65;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
-    // Animasi Teks Ngetik (Biasa)
+    // Teks Ngetik
     const typoSpeed = 65; 
     await typeWriter("type1", "In the world of literature, there are countless beautiful verses, but none can truly capture how much you mean to me.", typoSpeed);
     await new Promise(r => setTimeout(r, 1000));
@@ -149,18 +171,13 @@ async function lanjutKeVideo() {
     footer.style.display = 'block';
     setTimeout(() => { footer.style.opacity = '1'; }, 100);
     
-    // --- ENDING TRANSITION (POLAROID) ---
+    // --- ENDING ---
     let hasFadedOut = false;
     music.ontimeupdate = () => {
-        // Cek Menit 4:05 (245 detik)
         if (music.currentTime >= 245 && !hasFadedOut) {
             hasFadedOut = true;
             music.ontimeupdate = null; 
-
-            // 1. Fade Out Visual (Layar Gelap)
             scene.style.opacity = '0'; 
-
-            // 2. Munculin Ending Screen (Musik tetep jalan)
             setTimeout(() => {
                 scene.style.display = 'none'; 
                 const replayScreen = document.getElementById('replay-screen');
@@ -171,11 +188,9 @@ async function lanjutKeVideo() {
     };
 }
 
-// --- 6. FUNGSI CHAT WA (TAMBAHAN) ---
+// --- 6. CHAT WA ---
 function chatWhatsApp() {
-    // ⚠️ GANTI NOMOR DI BAWAH INI JADI NOMOR LU (628...)
-    const nomorHP = "0881036799054"; 
-    
-    const pesan = "kak, aku udaa nonton videonya...";
+    const nomorHP = "0881036799054"; // GANTI NOMOR LU
+    const pesan = "kakk, aku uda nonton videonya...";
     window.open(`https://wa.me/${nomorHP}?text=${encodeURIComponent(pesan)}`, '_blank');
 }
