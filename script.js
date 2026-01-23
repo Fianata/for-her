@@ -133,20 +133,39 @@ async function lanjutKeVideo() {
     footer.style.display = 'block';
     setTimeout(() => { footer.style.opacity = '1'; }, 100);
     
+    // --- GANTI BAGIAN INI (PALING BAWAH) ---
+
     let hasFadedOut = false;
     music.ontimeupdate = () => {
-        if (music.currentTime >= 246 && !hasFadedOut) {
+        // 4 Menit 05 Detik = 245 detik
+        if (music.currentTime >= 245 && !hasFadedOut) {
             hasFadedOut = true;
-            music.ontimeupdate = null;
+            
+            // 1. Matikan pendeteksi waktu biar gak jalan berkali-kali
+            music.ontimeupdate = null; 
+
+            // 2. Mulai gelapkan layar (Video & Teks ilang)
             scene.style.opacity = '0'; 
 
-            fadeOut(music, () => {
-                setTimeout(() => {
-                    scene.style.display = 'none';
-                    document.getElementById('replay-screen').style.display = 'flex';
-                    setTimeout(() => { document.getElementById('replay-screen').style.opacity = '1'; }, 150);
-                }, 1100);
-            });
+            // 3. Tunggu transisi gelap (2 detik), baru munculin tombol Replay
+            setTimeout(() => {
+                scene.style.display = 'none'; // Umpetin scene video
+                
+                // Munculin Layar Replay
+                const replayScreen = document.getElementById('replay-screen');
+                replayScreen.style.display = 'flex';
+                
+                // Fade In tombolnya
+                setTimeout(() => { 
+                    replayScreen.style.opacity = '1'; 
+                }, 100);
+                
+            }, 2000); // Waktu tunggu sesuai durasi transisi CSS (2-3 detik)
+
+            // CATATAN: 
+            // Gw HAPUS fungsi 'fadeOut(music)' disini.
+            // Jadi musik bakal tetep jalan sampe abis sendiri di menit 4:18 
+            // sambil Imell liat tombol "Replay".
         }
     };
 }
