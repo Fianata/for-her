@@ -253,3 +253,26 @@ button { width: 220px; padding: 15px; border-radius: 50px; border: none; font-we
     text-align: center;
     white-space: nowrap;
 }
+/* =========================================
+   LOADING OVERLAY (WAITING...)
+   ========================================= */
+#loading-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 5000;
+    display: none; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 1s ease;
+}
+
+.loading-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: lowercase;
+    animation: pulseText 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
