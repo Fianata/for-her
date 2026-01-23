@@ -50,7 +50,7 @@
             <div class="decor-sticker dc-4"><img src="hiasan4.jpg" alt="decor"></div>
 
             <div id="inner-decorations-ty">
-                <div class="decor" style="top:5%; left:10%;">✨</div>
+                <div class="decor" style="top:5%; left:10%;">🦋</div>
                 <div class="decor" style="top:20%; right:5%;">🎀</div>
                 <div class="decor" style="bottom:15%; left:5%;">🌸</div>
                 <div class="decor" style="bottom:5%; right:10%;">💖</div>
@@ -133,6 +133,7 @@
             <video id="us-video" muted playsinline preload="auto">
                 <source src="video_kita2.mp4" type="video/mp4">
             </video>
+            <div class="video-watermark">strangers with memories</div>
         </div>
 
         <div id="dramatic-text-container">
@@ -143,7 +144,7 @@
             
             <div id="final-footer">
                 <p class="drama-text" style="font-size: 11px; opacity: 0.6; margin-bottom: 5px;">/aɪ lʌv juː/</p>
-                <p class="footer-mahal">strangers with memories</p>
+                <p class="footer-mahal"></p>
             </div>
         </div>
     </div>
@@ -152,15 +153,27 @@
     <audio id="voiceAI" preload="auto"><source src="voice.mp3" type="audio/mpeg"></audio>
     <audio id="ambientMusic" loop preload="auto"><source src="amiin_piano.mp3" type="audio/mpeg"></audio>
 
-    <div id="replay-screen">
-        <button onclick="window.location.reload()" class="btn-replay">🔄see u soon </button>
+    <div id="replay-screen" style="display: none; opacity: 0;">
+        <div class="replay-content">
+            
+            <div class="polaroid-wrapper">
+                <div class="polaroid">
+                    <img src="imell.jpg" alt="Memori">
+                    <div class="caption">perfect</div>
+                </div>
+            </div>
+
+            <h1>see u soon!🦋</h1>
+            <p class="ps-note">note:perlu di inget aku disini ga berharap apapun jadi kamu jangan ngerasa gimana gimana yaa.</p>
+            
+            <div class="btn-ending-group">
+                <button onclick="location.reload()" class="btn-replay">↺ putar lagi</button>
+                <button onclick="chatWhatsApp()" class="btn-chat">jadi gimana mel? beneran udah clear kan? 💬</button>
+            </div>
+            
+        </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
