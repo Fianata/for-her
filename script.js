@@ -190,7 +190,8 @@ async function lanjutKeVideo() {
 
 // --- 6. CHAT WA ---
 function chatWhatsApp() {
-    const nomorHP = "0881036799054"; // GANTI NOMOR LU
+    const nomorHP = "62881036799054"; // GANTI NOMOR LU
     const pesan = "kakk, aku uda nonton videonya...";
     window.open(`https://wa.me/${nomorHP}?text=${encodeURIComponent(pesan)}`, '_blank');
 }
+
