@@ -150,7 +150,7 @@ async function lanjutKeVideo() {
     await new Promise(r => setTimeout(r, 2000)); 
     
     // Play Video
-    videoEl.muted = true; videoEl.playbackRate = 0.65;
+    videoEl.muted = true; videoEl.playbackRate = 0.50;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
