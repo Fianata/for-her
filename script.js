@@ -80,7 +80,7 @@ async function terimaMaaf() {
     // Set volume awal piano
     ambient.currentTime = 100; 
     ambient.playbackRate = 0.9; 
-    ambient.volume = 0.25; 
+    ambient.volume = 0.50; 
     ambient.play().catch(() => {});
     
     document.getElementById('content-wrapper').style.opacity = '0';
