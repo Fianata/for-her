@@ -137,7 +137,7 @@ async function lanjutKeVideo() {
 
     // Setup Voice
     if (!voiceSource) {
-        audioGain = audioCtx.createGain(); audioGain.gain.value = 0.80; 
+        audioGain = audioCtx.createGain(); audioGain.gain.value = 0.50; 
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain); audioGain.connect(audioCtx.destination);
     }
