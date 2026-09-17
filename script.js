@@ -137,7 +137,7 @@ async function lanjutKeVideo() {
 
     // Setup Voice
     if (!voiceSource) {
-        audioGain = audioCtx.createGain(); audioGain.gain.value = 0.70; 
+        audioGain = audioCtx.createGain(); audioGain.gain.value = 0.80; 
         voiceSource = audioCtx.createMediaElementSource(voice);
         voiceSource.connect(audioGain); audioGain.connect(audioCtx.destination);
     }
@@ -150,7 +150,7 @@ async function lanjutKeVideo() {
     await new Promise(r => setTimeout(r, 2000)); 
     
     // Play Video
-    videoEl.muted = true; videoEl.playbackRate = 0.50;
+    videoEl.muted = true; videoEl.playbackRate = 0.65;
     videoEl.play().then(() => { videoWrapper.classList.add('show-video'); });
     voice.play();
 
